@@ -1,0 +1,7 @@
+<button class="btn btn-upload-file" [ngClass]="{'btn-outline-primary': !uploadingImage, 'btn-primary': uploadingImage}" [disabled]="uploadingImage">
+    <span [hidden]="!uploadingImage" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+    {{ uploadingImage ? 'Uploading' : buttonLabel }}
+  <input type="file" (change)="uploadFile($event)">
+</button>
+
+<span *ngIf="showFileName">{{ fileName }}</span>

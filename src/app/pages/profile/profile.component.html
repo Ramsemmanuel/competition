@@ -1,0 +1,138 @@
+
+<div class="profile-banner p-3" [ngStyle]="{'background-image': 'url('+ userData?.imageUrl +')'}">
+    <div class="profile-image" *ngIf="userData?.imageUrl" [ngStyle]="{'background-image': 'url('+ userData?.imageUrl +')'}"></div>
+    <div>
+        <app-file-uploader
+        style="position: absolute;z-index: 9;width: 100%;"
+        (imageUploaded)="onImageUploaded($event)"
+        [fileDirectory]="'profiles'"
+        [buttonLabel]="buttonLabel"
+    ></app-file-uploader>
+    </div>
+
+    <div class="profile-cover-overlay"></div>
+</div>
+
+
+<div class="row mt-5">
+
+    <div class="col">
+        <div class="d-flex justify-content-between">
+            <h3 class="my-3 text-muted">Personal</h3>
+            <div class="text-right">
+                <button mat-icon-button aria-label="Edit" class="my-3" (click)="editProfile(userData)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+            
+        </div>
+        
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>First name:</strong> {{ userData?.firstName }}</li>
+            <li class="list-group-item"><strong>Last name:</strong> {{ userData?.lastName }}</li>
+            <li class="list-group-item"><strong>Date of Birth:</strong> {{ userData?.dateOfBirth || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Country:</strong> {{ userData?.nationality?.name || 'Not provided' }}</li>
+        </ul>
+
+        <!-- <h3 class="my-3 text-muted">Identity/Passport document</h3>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <p class="card-text">Upload your ID/Passport.</p>
+        
+                        <div class="my-3">
+                            <a *ngIf="userData?.idDocument" href="{{ userData?.idDocument }}" target="_blank">View Document</a>
+                        </div>
+        
+                        <app-file-uploader
+                            (imageUploaded)="onIdUploaded($event)"
+                            [fileDirectory]="'profiles'"
+                            [buttonLabel]="userData?.idDocument ? 'Update ID/Passport' : 'Upload ID/Passport'"
+                        ></app-file-uploader>
+                        
+                    </div>
+                    <div class="card-footer text-muted" *ngIf="userData?.idDocument">
+                        <button type="button" class="btn flex-fill mx-1 btn-outline-danger" (click)="removeDocument()">Remove ID/Passport</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <h3 class="my-3 text-muted">Contacts</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Email Address:</strong> {{ userData?.email }}</li>
+            <li class="list-group-item"><strong>Cell number:</strong> {{ userData?.cellNumber || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Alternate cell number:</strong> {{ userData?.alternateCellNumber || 'Not provided' }}</li>
+        </ul>
+
+        <div class="d-flex justify-content-between my-3">
+            <h3 class="my-3 text-muted">About me</h3>
+            <div class="text-right">
+                <button mat-icon-button aria-label="Edit" (click)="toggleEdit = !toggleEdit">
+                    <mat-icon>{{ toggleEdit ? 'close' : 'edit' }}</mat-icon>
+                </button>
+            </div>
+            
+        </div>
+
+        <p [hidden]="toggleEdit">{{ userData?.bio || 'Nothing about you yet' }}</p>
+
+        <div [hidden]="!toggleEdit">
+            <form class="form-signin" [formGroup]="form">
+                <mat-form-field style="width: 100%;">
+                    <textarea matInput placeholder="Tell us about yourself" formControlName="bio"></textarea>
+                </mat-form-field>
+                <div class="text-right">
+                    <button class="btn btn-outline-primary" [disabled]="!form.valid" (click)="saveBio()">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="d-flex justify-content-between my-3">
+    <h3 class="my-3 text-muted">My work</h3>
+    <div class="text-right">
+        <button class="btn btn btn-primary my-3" [disabled]="userWorkData?.length === 10" (click)="addWork()">Add new work ({{ 10 - userWorkData?.length }})</button>
+    </div>
+    
+</div>
+
+<div class="row my-3">
+
+    <div class="col">
+
+        <div class="card" *ngIf="loadingWorkData && !userWorkData">
+            <div class="card-body text-center">
+                Loading user work...
+            </div>
+        </div>  
+
+        <div class="card" *ngIf="!loadingWorkData && userWorkData.length === 0">
+            <div class="card-body">
+                No work has been added
+            </div>
+        </div>  
+
+        <div class="row" *ngIf="!loadingWorkData && userWorkData">
+            <div class="col-lg-4 col-xs-1" *ngFor="let item of userWorkData">
+                <div class="card m-1">
+                    <div class="card-body" style="padding: 8px;">
+                      <div class="artwork-thumbnail" [ngStyle]="{'background-image': 'url('+ item.imageUrl +')'}"></div>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn flex-fill btn-outline-secondary" (click)="editWork(item)">Edit</button>
+                            <button type="button" class="btn flex-fill mx-1 btn-outline-danger" (click)="onDeleteWork(item)">Delete</button>
+                            <button type="button" class="btn flex-fill btn-outline-success" [disabled]="getUserArtworkSubmitted(item)" (click)="submitEntry(item)">{{ getUserArtworkSubmitted(item) ? 'Submitted' : 'Submit' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

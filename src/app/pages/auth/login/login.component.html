@@ -1,0 +1,24 @@
+<div class="login-container">
+    <form class="form-signin" [formGroup]="form" (ngSubmit)="!isResetPassword ? loginUser() : resetPassword()">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="email" formControlName="email" class="form-control" placeholder="Email address" autofocus>
+
+        <label *ngIf="!isResetPassword" for="inputPassword" class="sr-only">Password</label>
+        <input *ngIf="!isResetPassword" type="password" formControlName="password" class="form-control" placeholder="Password">
+    
+        <button class="btn btn-lg btn-primary btn-block" [ngClass]="{'mt-2': isResetPassword}" [disabled]="loading || !form.valid" type="submit">
+            <span *ngIf="loading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span *ngIf="!loading">{{ isResetPassword ? 'Reset password' : 'Login' }}</span>
+        </button>
+
+        <div class="my-3">
+            <a [hidden]="isResetPassword" href="javascript:void(0)" (click)="toggleResetPassword()">Forgot password?</a>
+            <a *ngIf="isResetPassword" href="javascript:void(0)" (click)="toggleResetPassword()">Go to login</a>
+        </div>
+
+
+        <p [hidden]="isResetPassword" class="text-center lead my-3">Or</p>
+        <a [hidden]="isResetPassword" href="javascript:void(0)" [routerLink]="['/register']" class="btn btn-lg btn-light btn-block">Register</a>
+    </form>
+</div>

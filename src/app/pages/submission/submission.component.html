@@ -1,0 +1,24 @@
+<div class="list-group list-group list-group-flush">
+    <li class="list-group-item list-group-item-action px-0" *ngFor="let item of entriesData">
+        <div class="d-flex justify-content-between" *ngIf="artworkData">
+            <div class="d-flex justify-content-start">
+                <div class="artwork-thumbnail border-dark" [ngStyle]="{'background-image': 'url('+ getArtworkDetails(item.artworkId)?.imageUrl +')'}"></div>
+                <div class="align-self-center ml-3">
+                    <h3>{{ getArtworkDetails(item.artworkId)?.artworkDescription }}</h3>
+                    <p class="m-0">{{ getArtworkDetails(item.artworkId)?.artworkDescription }}</p>
+                    <span class="text-muted">
+                        {{ item.entryDate | date: 'mediumDate'}}
+                    </span>
+                </div>
+           
+            </div>
+            <div class="align-self-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary">No</button>
+                    <button type="button" class="btn btn-secondary">Yes</button>
+                </div>
+            </div>
+  
+        </div>
+    </li>
+</div>

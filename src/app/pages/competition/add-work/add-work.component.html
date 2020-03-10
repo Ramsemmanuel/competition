@@ -1,0 +1,21 @@
+
+<h4>{{ data?.workData?.id ? 'Edit' : 'Add' }} work</h4>
+<div mat-dialog-content class="mt-3">
+
+    <app-file-uploader
+        class="mb-3"
+        (imageUploaded)="onImageUploaded($event)"
+        [fileDirectory]="'artworks'"
+        [showFileName]="true"
+        [buttonLabel]="buttonLabel"
+    ></app-file-uploader>
+
+    <mat-form-field class="my-3" style="width: 100%">
+        <input matInput [(ngModel)]="artworkDescription" name="artworkDescription" placeholder="Artwork description" required>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions class="uk-align-right">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="addWork()" [disabled]="!artworkDescription || !workData?.imageUrl" cdkFocusInitial>Save</button>
+</div>

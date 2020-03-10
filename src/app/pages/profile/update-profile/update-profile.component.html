@@ -1,0 +1,40 @@
+<form class="form-signin" [formGroup]="form">
+    <h4 >Update Profile</h4 >
+    <div mat-dialog-content class="mt-3">
+
+        <mat-form-field style="width: 100%">
+            <input matInput formControlName="firstName" placeholder="First name">
+        </mat-form-field>
+        
+        <mat-form-field style="width: 100%">
+            <input matInput formControlName="lastName" placeholder="Last name">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+            <input matInput type="date" formControlName="dateOfBirth" placeholder="Date of birth">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+            <mat-select placeholder="Country of born"
+                formControlName="nationality">
+                <mat-option *ngFor="let item of countriesData" [value]="item">
+                    {{ item.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field style="width: 100%">
+            <input matInput formControlName="cellNumber" placeholder="Cell number">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+            <input matInput formControlName="alternateCellNumber" placeholder="Alternate cell number">
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="uk-align-right">
+        <button mat-button (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="updateProfile()" [disabled]="!form.valid" cdkFocusInitial>Save</button>
+    </div>
+</form>

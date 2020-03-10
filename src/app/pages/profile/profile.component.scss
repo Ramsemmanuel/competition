@@ -1,0 +1,66 @@
+.list-group {
+    .list-group-item {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.profile-banner, .profile-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+    position: relative;
+}
+.profile-banner {
+    border-bottom: 5px solid #800035;
+}
+
+.profile-cover-overlay {
+    display: block;
+    height: 195px;
+    background: url('../../../assets/images/dotted-overlay.png') center repeat;
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.profile-image {
+    @media (min-width: 768px) {
+        height: 150px;
+        width: 150px;
+        border-radius: 75px;
+        bottom: -75px;
+    }
+
+    @media screen and (max-width: 767px) {
+        height: 100px;
+        width: 100px;
+        border-radius: 50px;
+        bottom: -50px;
+    }
+    border: 5px solid #800035;
+    margin-bottom: 20px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    .upload-image {
+        // margin: 0;
+        // position: absolute;
+        // top: 50%;
+        // -ms-transform: translateY(-50%);
+        // transform: translateY(-50%);
+        // text-align: center;
+        // width: 100%;
+    }
+}
+
+.artwork-thumbnail {
+    min-height: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

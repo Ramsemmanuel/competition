@@ -1,0 +1,102 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$competition-primary: mat-palette($mat-indigo);
+$competition-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$competition-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$competition-theme: mat-light-theme($competition-primary, $competition-accent, $competition-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($competition-theme);
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$competition-primary: mat-palette($mat-indigo);
+$competition-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$competition-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$competition-theme: mat-light-theme($competition-primary, $competition-accent, $competition-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($competition-theme);
+
+/* You can add global styles to this file, and also import other style files */
+$primary: #800035;
+
+$hamburger-padding-x           : 0 !default;
+$hamburger-padding-y           : 0 !default;
+$hamburger-layer-width         : 35px !default;
+$hamburger-layer-height        : 3px !default;
+$hamburger-layer-spacing       : 6px !default;
+$hamburger-layer-color         : $primary !default;
+$hamburger-layer-border-radius : 0 !default;
+$hamburger-hover-opacity       : 0.7 !default;
+
+@import '~bootstrap/scss/bootstrap';
+@import '~hamburgers/_sass/hamburgers/hamburgers';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.select-input {
+    height: 48px !important;
+}
+
+.read-only-input input {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 8px 15px;
+}
+
+.main-navbar {
+    background-color: rgba(#ffffff, 1);
+}
+.auth-page {
+    background-image: url('assets/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    .main-container {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .main-navbar {
+        background-color: rgba(#ffffff, 0.65) !important;
+    }
+}
