@@ -82,8 +82,21 @@ export class CompetitionsService {
       return this.httpClient.post('http://localhost:3000/user-entries/', {userId: this.userId});
     }
 
-
     getAllEntries() {
       return this.httpClient.get('http://localhost:3000/entries/');
+    }
+    updateEntry(data) {
+      return this.httpClient.put('http://localhost:3000/update-entry/', data)
+    }
+
+    // VOTES
+    updateVote(data) {
+      return this.httpClient.put('http://localhost:3000/update-vote/', data)
+    }
+    addVote(data) {
+      return this.httpClient.post('http://localhost:3000/add-vote/', data)
+    }
+    getAllVotes() {
+      return this.httpClient.get('http://localhost:3000/votes/');
     }
 }

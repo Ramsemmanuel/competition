@@ -126,8 +126,8 @@
 
                     <div class="card-footer text-muted">
                         <div class="d-flex justify-content-between">
-                            <button type="button" class="btn flex-fill btn-outline-secondary" (click)="editWork(item)">Edit</button>
-                            <button type="button" class="btn flex-fill mx-1 btn-outline-danger" (click)="onDeleteWork(item)">Delete</button>
+                            <button type="button" class="btn flex-fill btn-outline-secondary" [disabled]="getUserArtworkSubmitted(item)" (click)="editWork(item)">Edit</button>
+                            <button type="button" class="btn flex-fill mx-1 btn-outline-danger" [disabled]="getUserArtworkSubmitted(item)" (click)="onDeleteWork(item)">Delete</button>
                             <button type="button" class="btn flex-fill btn-outline-success" [disabled]="getUserArtworkSubmitted(item)" (click)="submitEntry(item)">{{ getUserArtworkSubmitted(item) ? 'Submitted' : 'Submit' }}</button>
                         </div>
                     </div>

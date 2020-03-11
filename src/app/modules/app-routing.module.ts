@@ -9,7 +9,7 @@ import { SubmissionComponent } from '../pages/submission/submission.component';
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    component: ProfileComponent
   },
   {
     path: 'login',
