@@ -1,4 +1,15 @@
 .footer-container {
     background-color: white;
     min-height: 300px;
+    .footer-heading {
+        font-size: 14px;
+    }
+    a.d-block {
+        color: #2d2323;
+        &:hover {
+            text-decoration: none;
+            color: #2d2323;
+        }
+    }
+
 }

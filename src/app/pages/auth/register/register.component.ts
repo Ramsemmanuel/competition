@@ -41,6 +41,10 @@ export class RegisterComponent implements OnInit {
     console.log($event);
   }
 
+  passwordMatch() {
+    return this.form.value.password == this.form.value.confirmPassword;
+  }
+
   registerUser() {
       if(this.form.value.password == this.form.value.confirmPassword) {
         this.loading = true;
