@@ -24,14 +24,13 @@
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
-            
         </div>
         
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>First name:</strong> {{ userData?.firstName }}</li>
             <li class="list-group-item"><strong>Last name:</strong> {{ userData?.lastName }}</li>
-            <li class="list-group-item"><strong>Date of Birth:</strong> {{ userData?.dateOfBirth || 'Not provided' }}</li>
-            <li class="list-group-item"><strong>Country:</strong> {{ userData?.nationality?.name || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Date of Birth:</strong> {{ userData?.dateOfBirth | date: 'dd/MM/yyyy' || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Country:</strong> {{ userData?.nationality || 'Not provided' }}</li>
         </ul>
 
         <!-- <h3 class="my-3 text-muted">Identity/Passport document</h3>

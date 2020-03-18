@@ -52,10 +52,17 @@ export class AppComponent {
     ).subscribe((event: NavigationEnd) => {
       this.document.body.classList.remove('auth-page');
       if((event.url.indexOf('login') > -1) || (event.url.indexOf('register') > -1)) {
+        if(event.url.indexOf('login') > -1) {
+          this.document.body.classList.add('login-page');
+        }
+        else {
+          this.document.body.classList.remove('login-page');
+        }
         this.document.body.classList.add('auth-page');
       }
       else {
         this.document.body.classList.remove('auth-page');
+        this.document.body.classList.remove('login-page');
       }
     });
   }

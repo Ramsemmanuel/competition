@@ -59,6 +59,7 @@ export class UpdateProfileComponent implements OnInit {
   updateProfile() {
     this.userData = Object.assign(this.data , this.form.value);
     if(this.userData.id) {
+      this.userData.nationality = this.userData.nationality.name_official
       this.authProvider.updateUser(this.userData).subscribe((data) => {
         console.log(this.userData);
         this.snackBar.open(data['message'], 'CLOSE', { duration: 5000 });
@@ -66,5 +67,4 @@ export class UpdateProfileComponent implements OnInit {
       });
     }
   }
-
 }

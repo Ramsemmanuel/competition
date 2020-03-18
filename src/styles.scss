@@ -91,6 +91,12 @@ body { margin: 0; font-family: 'Source Sans Pro', sans-serif; }
     background-position: top center;
     background-size: cover;
     background-attachment: fixed;
+    &.login-page {
+        .app-container {
+            max-width: 400px;
+            margin: auto;
+        }
+    }
 
     .main-container {
         max-width: 800px;
