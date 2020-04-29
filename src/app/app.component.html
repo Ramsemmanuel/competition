@@ -1,48 +1,40 @@
-
-
-<!-- <mat-drawer-container class="example-container" autosize>  -->
-    <!-- <mat-drawer #drawer class="example-sidenav" mode="over">
-        <div class="m-3 d-flex justify-content-between">
-            <h4 class="m-0">Menu</h4>
-            <div class="text-right">
-                <button mat-icon-button aria-label="Close menu" (click)="drawer.toggle()">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </div>
-
-        <mat-action-list style="width: 320px;">
-            <button mat-list-item (click)="drawer.toggle()"> Menu one </button>
-            <button mat-list-item (click)="drawer.toggle()"> Menu two </button>
-            <button mat-list-item (click)="drawer.toggle()"> Menu three </button>
-        </mat-action-list>
-    </mat-drawer> -->
-
-    <!-- <mat-toolbar color="primary" *ngIf="loggedInUser && emailVerified">
-        <mat-toolbar-row>
-            <div class="d-flex w-100">
-                <div class="flex-grow-1">
-
-
-                    <span style="vertical-align: middle;">Logo</span>
+<div class="main-navbar" [ngClass]="{'overlay-menu-opened': toggleMenu, 'overlay-menu-closed': !toggleMenu}">
+    <div class="container d-flex justify-content-between align-content-stretch">
+        <!-- <div class="d-flex align-self-center "> -->
+            <div class="align-self-center">
+                <div class="hamburger hamburger--slider" (click)="toggleMenu = !toggleMenu" [ngClass]="{'is-active': toggleMenu}">
+                    <div class="hamburger-box">
+                      <div class="hamburger-inner"></div>
+                    </div>
                 </div>
-    
-                <button mat-button [matMenuTriggerFor]="menu">
-                    <mat-icon>account_circle</mat-icon> 
-                    <span>{{ loggedInUser?.displayName }}</span>
-                </button>
-    
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="logout()">
-                        <mat-icon>power_settings_new</mat-icon>
-                        <span>Logout</span>
-                    </button>
-                </mat-menu>
+                <a href="https://latelier.ftech.aws.dsarena.com/"><img class="logo ml-3" src="assets/images/Grey_LAtelier_Shoes-33.png" alt=""></a>
             </div>
-        </mat-toolbar-row>
-    </mat-toolbar> -->
+            <div class="align-self-center">
+                <p class="text-primary m-0" *ngIf="!loggedInUser">
+                    <a href="" [routerLink]="['/login']" class="log-reg">Login</a>
+                    |
+                    <a href="" [routerLink]="['/register']" class="log-reg">Register</a>
+                </p>
+                <button type="button" (click)="logout()" class="btn btn-outline-primary" *ngIf="loggedInUser">Logout</button>
+            </div>
+        <!-- </div> -->
+    </div>
+</div>
 
-    <app-header [profileName]="loggedInUser?.firstName" ></app-header>
+<div class="overlay-menu" [ngClass]="{'menu-opened': toggleMenu, 'menu-closed': !toggleMenu}">
+    <div class="menu-content">
+        <div>
+            <a class="d-block my-3" href="https://latelier.ftech.aws.dsarena.com">Home</a>
+            <a class="d-block my-3" href="https://latelier.ftech.aws.dsarena.com/about-latelier/">About</a>
+            <a class="d-block my-3" href="https://latelier.ftech.aws.dsarena.com/the-competition/">The Competition</a>
+            <a class="d-block my-3" href="https://latelier.ftech.aws.dsarena.com/past-artwork-and-winners/">Past Artwork and Winners</a>
+            <a class="d-block my-3" href="https://latelier.ftech.aws.dsarena.com/contact-us/">Contact Us</a>
+        </div>
+    </div>
+</div>
+
+
+    <!-- <app-header [loggedInUserData]="loggedInUser" ></app-header> -->
     
     <div class="alert alert-warning text-center" *ngIf="emailVerified === false" role="alert">
         Verification email has been sent to <strong>{{ loggedInUser?.email }}</strong>
