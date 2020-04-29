@@ -62,8 +62,8 @@
         <h3 class="my-3 text-muted">Contacts</h3>
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Email Address:</strong> {{ userData?.email }}</li>
-            <li class="list-group-item"><strong>Cell number:</strong> {{ userData?.cellNumber || 'Not provided' }}</li>
-            <li class="list-group-item"><strong>Alternate cell number:</strong> {{ userData?.alternateCellNumber || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Mobile number:</strong> {{ userData?.cellNumber || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Alternate Mobile number:</strong> {{ userData?.alternateCellNumber || 'Not provided' }}</li>
         </ul>
 
         <div class="d-flex justify-content-between my-3">
@@ -93,11 +93,15 @@
 </div>
 
 <div class="d-flex justify-content-between my-3">
-    <h3 class="my-3 text-muted">My work</h3>
-    <div class="text-right">
-        <button class="btn btn btn-primary my-3" [disabled]="userWorkData?.length === 10" (click)="addWork()">Add new work ({{ 10 - userWorkData?.length }})</button>
+    <div>
+        <h3 class="my-3 text-muted">My Artwork</h3>
+        
     </div>
     
+    <div class="text-right">
+        <button class="btn btn btn-primary my-3" [disabled]="userWorkData?.length === 10" (click)="addWork()">Upload Artwork ({{ 10 - userWorkData?.length }})</button>
+        <p class="m-0 lead">{{ userArtworkEntriesData?.length }}/6 Submitted</p>
+    </div>
 </div>
 
 <div class="row my-3">
@@ -110,7 +114,7 @@
             </div>
         </div>  
 
-        <div class="card" *ngIf="!loadingWorkData && userWorkData.length === 0">
+        <div class="card" *ngIf="!loadingWorkData && userWorkData?.length === 0">
             <div class="card-body">
                 No work has been added
             </div>
@@ -127,7 +131,7 @@
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn flex-fill btn-outline-secondary" [disabled]="getUserArtworkSubmitted(item)" (click)="editWork(item)">Edit</button>
                             <button type="button" class="btn flex-fill mx-1 btn-outline-danger" [disabled]="getUserArtworkSubmitted(item)" (click)="onDeleteWork(item)">Delete</button>
-                            <button type="button" class="btn flex-fill btn-outline-success" [disabled]="getUserArtworkSubmitted(item)" (click)="submitEntry(item)">{{ getUserArtworkSubmitted(item) ? 'Submitted' : 'Submit' }}</button>
+                            <button type="button" class="btn flex-fill btn-outline-success" [disabled]="getUserArtworkSubmitted(item) || userArtworkEntriesData?.length >= 6" (click)="submitEntry(item)">{{ getUserArtworkSubmitted(item) ? 'Submitted' : 'Submit' }}</button>
                         </div>
                     </div>
                 </div>
