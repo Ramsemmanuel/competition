@@ -88,6 +88,9 @@ export class CompetitionsService {
     updateEntry(data) {
       return this.httpClient.put('http://localhost:3000/update-entry/', data)
     }
+    getUsersFromEntries() {
+      return this.httpClient.get('http://localhost:3000/entries-user-ids/')
+    }
 
     // VOTES
     updateVote(data) {
