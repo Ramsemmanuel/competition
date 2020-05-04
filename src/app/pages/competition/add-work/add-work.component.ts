@@ -17,8 +17,15 @@ export class AddWorkComponent implements OnInit {
   userData: any;
   buttonLabel: any;
   artworkDescription: string = '';
+  artworkSize: string = '';
+  artworkMedium: string = '';
+  artworkEditionNo: string = '';
+
   workData: any = {
     artworkDescription: '',
+    artworkSize: '',
+    artworkMedium: '',
+    artworkEditionNo: '',
     imageUrl: ''
   };
   imageUrl: any;
@@ -52,6 +59,10 @@ export class AddWorkComponent implements OnInit {
     // this.workData = Object.assign(this.data.workData , this.form.value);
     this.workData.userId = this.userId;
     this.workData.artworkDescription = this.artworkDescription;
+    this.workData.artworkSize = this.artworkSize;
+    this.workData.artworkDescription = this.artworkDescription;
+    this.workData.artworkMedium = this.artworkMedium;
+    this.workData.artworkEditionNo = this.artworkEditionNo;
     if(this.workData.id) {
       // this.workData.imageUrl = this.workData.imageUrl ? this.workData.imageUrl : this.data.workData.imageUrl;
       this.competitionProviders.updateWork(this.workData).subscribe((data) => {

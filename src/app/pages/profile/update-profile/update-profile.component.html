@@ -15,7 +15,7 @@
         </mat-form-field>
 
         <mat-form-field style="width: 100%">
-            <mat-select placeholder="Country of Birth"
+            <mat-select placeholder="Country of born"
                 formControlName="nationality">
                 <mat-option *ngFor="let item of countriesData" [value]="item.name_official">
                     {{ item.name_official }}
@@ -25,11 +25,11 @@
 
 
         <mat-form-field style="width: 100%">
-            <input matInput formControlName="cellNumber" placeholder="Mobile Number">
+            <input matInput formControlName="cellNumber" placeholder="Cell number">
         </mat-form-field>
 
         <mat-form-field style="width: 100%">
-            <input matInput formControlName="alternateCellNumber" placeholder="Alternate Mobile Number">
+            <input matInput formControlName="alternateCellNumber" placeholder="Alternate cell number">
         </mat-form-field>
     </div>
 

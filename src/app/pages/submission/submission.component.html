@@ -1,6 +1,6 @@
 <mat-tab-group>
     <mat-tab label="Submissions">
-        <div class="list-group list-group list-group-flush my-4">
+        <div class="list-group list-group list-group-flush my-4" *ngIf="false">
             <li class="list-group-item list-group-item-action px-0" *ngFor="let item of entriesData">
                 <div class="d-flex justify-content-between" *ngIf="artworkData">
                     <div class="d-flex justify-content-start">
@@ -10,6 +10,7 @@
                             <p class="m-0">{{ getArtworkDetails(item.artworkId)?.artworkDescription }}</p>
                             <span class="text-muted">
                                 {{ item.entryDate | date: 'mediumDate'}}
+                                {{ item.userId }}
                             </span>
                         </div>
                    
@@ -23,8 +24,30 @@
                 </div>
             </li>
         </div>
+
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+          <ngb-panel title="{{ item.userId }}" *ngFor="let item of usersIdsFromEntriesData">
+            <ng-template ngbPanelContent>
+              <div class="row">
+                <div class="col-md-3 col-sm-12 my-2" *ngFor="let work of entriesData">
+                  <div class="card" *ngIf="work.userId === item.userId">
+                    <div class="artwork-thumbnail border-dark" [ngStyle]="{'background-image': 'url('+ getArtworkDetails(work.artworkId)?.imageUrl +')'}"></div>
+                    <div class="card-body">
+                      <h5 class="card-title">Id: {{ work.artworkId }}</h5>
+                      <button href="" class="btn btn-outline-primary">Yes</button>
+                      <button href="" class="btn btn-outline-primary ml-3">No</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+
+
     </mat-tab>
-    <mat-tab label="Leaderboard">
+    <mat-tab label="Leaderboard" *ngIf="votesData">
         <div class="d-flex justify-content-between" *ngFor="let item of entriesData">
             {{ item.artworkId }} - {{ getMostVoted(item.artworkId).number }}
         </div>

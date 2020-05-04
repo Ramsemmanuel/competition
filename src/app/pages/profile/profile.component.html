@@ -33,13 +33,13 @@
             <li class="list-group-item"><strong>Country:</strong> {{ userData?.nationality || 'Not provided' }}</li>
         </ul>
 
-        <!-- <h3 class="my-3 text-muted">Identity/Passport document</h3>
+        <h3 class="my-3 text-muted">Upload CV</h3>
 
         <div class="row">
             <div class="col-lg-4">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <p class="card-text">Upload your ID/Passport.</p>
+                        <!-- <p class="card-text">Upload your CV.</p> -->
         
                         <div class="my-3">
                             <a *ngIf="userData?.idDocument" href="{{ userData?.idDocument }}" target="_blank">View Document</a>
@@ -48,26 +48,26 @@
                         <app-file-uploader
                             (imageUploaded)="onIdUploaded($event)"
                             [fileDirectory]="'profiles'"
-                            [buttonLabel]="userData?.idDocument ? 'Update ID/Passport' : 'Upload ID/Passport'"
+                            [buttonLabel]="userData?.idDocument ? 'Update CV' : 'Upload CV'"
                         ></app-file-uploader>
                         
                     </div>
                     <div class="card-footer text-muted" *ngIf="userData?.idDocument">
-                        <button type="button" class="btn flex-fill mx-1 btn-outline-danger" (click)="removeDocument()">Remove ID/Passport</button>
+                        <button type="button" class="btn flex-fill mx-1 btn-outline-danger" (click)="removeDocument()">Remove CV</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <h3 class="my-3 text-muted">Contacts</h3>
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Email Address:</strong> {{ userData?.email }}</li>
-            <li class="list-group-item"><strong>Mobile number:</strong> {{ userData?.cellNumber || 'Not provided' }}</li>
-            <li class="list-group-item"><strong>Alternate Mobile number:</strong> {{ userData?.alternateCellNumber || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Cell number:</strong> {{ userData?.cellNumber || 'Not provided' }}</li>
+            <li class="list-group-item"><strong>Alternate cell number:</strong> {{ userData?.alternateCellNumber || 'Not provided' }}</li>
         </ul>
 
         <div class="d-flex justify-content-between my-3">
-            <h3 class="my-3 text-muted">About me</h3>
+            <h3 class="my-3 text-muted">Portfolio Statement</h3>
             <div class="text-right">
                 <button mat-icon-button aria-label="Edit" (click)="toggleEdit = !toggleEdit">
                     <mat-icon>{{ toggleEdit ? 'close' : 'edit' }}</mat-icon>
@@ -94,13 +94,12 @@
 
 <div class="d-flex justify-content-between my-3">
     <div>
-        <h3 class="my-3 text-muted">My Artwork</h3>
-        
+        <h3 class="my-3 text-muted">My work</h3>
+        <p class="m-0 lead">{{ userArtworkEntriesData?.length }} Submitted</p>
     </div>
     
     <div class="text-right">
-        <button class="btn btn btn-primary my-3" [disabled]="userWorkData?.length === 10" (click)="addWork()">Upload Artwork ({{ 10 - userWorkData?.length }})</button>
-        <p class="m-0 lead">{{ userArtworkEntriesData?.length }}/6 Submitted</p>
+        <button class="btn btn btn-primary my-3" [disabled]="userWorkData?.length === 10" (click)="addWork()">Add new work ({{ 10 - userWorkData?.length }})</button>
     </div>
 </div>
 
@@ -127,11 +126,11 @@
                       <div class="artwork-thumbnail" [ngStyle]="{'background-image': 'url('+ item.imageUrl +')'}"></div>
                     </div>
 
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-muted" *ngIf="userArtworkEntriesData">
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn flex-fill btn-outline-secondary" [disabled]="getUserArtworkSubmitted(item)" (click)="editWork(item)">Edit</button>
                             <button type="button" class="btn flex-fill mx-1 btn-outline-danger" [disabled]="getUserArtworkSubmitted(item)" (click)="onDeleteWork(item)">Delete</button>
-                            <button type="button" class="btn flex-fill btn-outline-success" [disabled]="getUserArtworkSubmitted(item) || userArtworkEntriesData?.length >= 6" (click)="submitEntry(item)">{{ getUserArtworkSubmitted(item) ? 'Submitted' : 'Submit' }}</button>
+                            <button type="button" class="btn flex-fill btn-outline-success" [disabled]="getUserArtworkSubmitted(item) || userArtworkEntriesData?.length >= 5" (click)="submitEntry(item)">{{ getUserArtworkSubmitted(item) ? 'Submitted' : 'Submit' }}</button>
                         </div>
                     </div>
                 </div>

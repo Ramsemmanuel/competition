@@ -1,16 +1,16 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from './api/auth/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location, NgLocalization } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'competition';
   toggleMenu: boolean = false;
 
@@ -25,35 +25,18 @@ export class AppComponent {
     private route:ActivatedRoute,
     @Inject(DOCUMENT) private document: Document
   ) {
-    authData.currentUser().subscribe((data) => {
-      this.loadingUser = true;
-      if(data.length) {
-        // this.emailVerified = data.emailVerified;
-        this.loggedInUser = data[0];
-        this.loggedInUser.firstName = data[0].userType === 'JUDGE' ? 'JUDGE' :  data[0].firstName; 
-        console.log(data);
-        this.router.navigate(data[0].userType === 'JUDGE' ? ['/submissions'] : ['/profile'] );
-        this.loadingUser = false;
-        if(!data) {
-         this.router.navigate(['/login']);
-          this.loggedInUser = null;
-          this.loadingUser = false;
-        }
-      }
-      else {
-       this.router.navigate(['/login']);
-        this.loggedInUser = null;
-        this.loadingUser = false;
-      }
-    });
+
+    this.loadUserData();
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)  
+      filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
+      this.loadUserData();
       this.document.body.classList.remove('auth-page');
-      if((event.url.indexOf('login') > -1) || (event.url.indexOf('register') > -1)) {
-        if(event.url.indexOf('login') > -1) {
+      if((event.url.indexOf('login') > -1) || (event.url.indexOf('register') > -1) || (event.url.indexOf('password-reset') > -1)) {
+        if(event.url.indexOf('login') > -1 || (event.url.indexOf('password-reset') > -1)) {
           this.document.body.classList.add('login-page');
+          // this.loggedInUser = null;
         }
         else {
           this.document.body.classList.remove('login-page');
@@ -67,12 +50,39 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+
+  }
+
+  loadUserData() {
+    this.authData.currentUser().subscribe((data) => {
+      this.loadingUser = true;
+      if(data.length) {
+        // this.emailVerified = data.emailVerified;
+        this.loggedInUser = data[0];
+        this.loggedInUser.firstName = data[0].userType === 'JUDGE' ? 'JUDGE' :  data[0].firstName; 
+        this.router.navigate(data[0].userType === 'JUDGE' ? ['/submissions'] : ['/profile'] );
+        this.loadingUser = false;
+        if(!data) {
+         this.router.navigate(['/login']);
+          this.loggedInUser = null;
+          this.loadingUser = false;
+        }
+      }
+      else {
+      //  this.router.navigate(['/login']);
+        this.loggedInUser = null;
+        this.loadingUser = false;
+      }
+    });
+  }
+
   logout() {
     this.toggleMenu = false;
     this.authData.logoutUser()
     this.loggedInUser = null;
     this.router.navigate(['/login']);
-    location.reload();
+    this.loadUserData();
     this.snackBar.open('You have been logged out', 'CLOSE', {
       duration: 5000,
     });

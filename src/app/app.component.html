@@ -7,13 +7,13 @@
                       <div class="hamburger-inner"></div>
                     </div>
                 </div>
-                <a href="https://latelier.ftech.aws.dsarena.com/"><img class="logo ml-3" src="assets/images/Grey_LAtelier_Shoes-33.png" alt=""></a>
+                <img class="logo ml-3" src="assets/images/Grey_LAtelier_Shoes-33.png" alt="">
             </div>
             <div class="align-self-center">
                 <p class="text-primary m-0" *ngIf="!loggedInUser">
-                    <a href="" [routerLink]="['/login']" class="log-reg">Login</a>
+                    <a href="" [routerLink]="['/login']">Login</a>
                     |
-                    <a href="" [routerLink]="['/register']" class="log-reg">Register</a>
+                    <a href="" [routerLink]="['/register']">Register</a>
                 </p>
                 <button type="button" (click)="logout()" class="btn btn-outline-primary" *ngIf="loggedInUser">Logout</button>
             </div>

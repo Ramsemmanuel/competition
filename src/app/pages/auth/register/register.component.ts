@@ -24,13 +24,13 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {
     this.form = this.formBuilder.group({
-      firstName: ['Risthidze', Validators.required],
-      lastName: ['Ratshili', Validators.required],
-      email: ['ritshidze@me.com', Validators.required],
-      cellNumber: ['079877377', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      cellNumber: ['', Validators.required],
       terms: ['', Validators.required],
-      password: ['123456', Validators.required],
-      confirmPassword: ['123456', Validators.required]
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     })
   }
 
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onCountrySelected($event: Country) {
-    console.log($event);
+    // console.log($event);
   }
 
   passwordMatch() {
@@ -48,7 +48,6 @@ export class RegisterComponent implements OnInit {
   registerUser() {
       if(this.form.value.password == this.form.value.confirmPassword) {
         this.loading = true;
-        delete this.form.value.confirmPassword;
         delete this.form.value.terms;
         delete this.form.value.confirmPassword;
         this.authService.signupUser(this.form.value)

@@ -34,6 +34,8 @@ import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog
 import { ConfirmDialogService } from './providers/modals/confirm-dialog.service';
 import { IdGeneratorService } from './providers/id-generator/id-generator.service';
 import { SubmissionComponent } from './pages/submission/submission.component';
+import { PasswordResetComponent } from './pages/auth/password-reset/password-reset.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { SubmissionComponent } from './pages/submission/submission.component';
     EnterCompetitionComponent,
     AddWorkComponent,
     ConfirmDeleteDialogComponent,
-    SubmissionComponent
+    SubmissionComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ import { SubmissionComponent } from './pages/submission/submission.component';
     HttpClientJsonpModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
 
     MaterialModule,
 

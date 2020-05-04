@@ -23,12 +23,13 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { 
     this.form = this.formBuilder.group({
-      email: ['ritshidze@me.com', [Validators.required, Validators.email]],
-      password: ['123456', this.isResetPassword  ? Validators.nullValidator : Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', this.isResetPassword  ? Validators.nullValidator : Validators.required]
     })
   }
 
   ngOnInit() {
+    // location.reload();
   }
 
   toggleResetPassword() {
@@ -44,11 +45,15 @@ export class LoginComponent implements OnInit {
     this.authData.loginUser(this.form.value.email, this.form.value.password);
   }
 
-    resetPassword() {
-      this.authData.resetPassword(this.form.value.email).then(data => {
-        this.toggleResetPassword();
-        this.snackBar.open(`A link to reset password was sent to ${ this.form.value.email }, please check it`, 'CLOSE', { duration: 5000 });
-      });
-    }
+  resetPassword() {
+    this.authData.sendEmailForPasswordReset(this.form.value.email).subscribe((data)=> {
+      this.snackBar.open(`A link to reset password was sent to ${ this.form.value.email }, please check it`, 'CLOSE', { duration: 5000 });
+    })
+
+    // this.authData.sendEmailForPasswordReset(this.form.value.email).then(data => {
+    //   this.toggleResetPassword();
+    //   this.snackBar.open(`A link to reset password was sent to ${ this.form.value.email }, please check it`, 'CLOSE', { duration: 5000 });
+    // });
+  }
 
 }

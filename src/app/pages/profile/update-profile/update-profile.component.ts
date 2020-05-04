@@ -37,20 +37,20 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.form = this.formBuilder.group({
       firstName: [this.data ? this.data.firstName : null, Validators.required],
       lastName: [this.data ? this.data.lastName : null, Validators.required],
       dateOfBirth: [this.data ? this.data.dateOfBirth : null],
       email: [this.data ? this.data.email : null, Validators.required],
       cellNumber: [this.data ? this.data.cellNumber : null, Validators.required],
-      nationality: [this.data ? this.data.nationality : null],
+      nationality: [this.data ? this.selectedCountry : null],
       alternateCellNumber: [this.data ? this.data.alternateCellNumber : null]
     });
-
-    this.selectedCountry = this.data.nationality;
-
     this.form.get('nationality').setValue(this.data.nationality);
   }
+
+  
 
   onCancel(): void {
     this.dialogRef.close();
@@ -59,9 +59,8 @@ export class UpdateProfileComponent implements OnInit {
   updateProfile() {
     this.userData = Object.assign(this.data , this.form.value);
     if(this.userData.id) {
-      this.userData.nationality = this.userData.nationality.name_official
+      this.userData.nationality = this.userData.nationality
       this.authProvider.updateUser(this.userData).subscribe((data) => {
-        console.log(this.userData);
         this.snackBar.open(data['message'], 'CLOSE', { duration: 5000 });
         this.dialogRef.close();
       });

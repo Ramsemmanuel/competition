@@ -4,6 +4,7 @@ import { LoginComponent } from '../pages/auth/login/login.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { RegisterComponent } from '../pages/auth/register/register.component';
 import { SubmissionComponent } from '../pages/submission/submission.component';
+import { PasswordResetComponent } from '../pages/auth/password-reset/password-reset.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'submissions',
     component: SubmissionComponent
+  },
+  {
+    path: 'password-reset/:email',
+    component: PasswordResetComponent
   }
 ];
 

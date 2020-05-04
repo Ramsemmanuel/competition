@@ -13,6 +13,7 @@ export class SubmissionComponent implements OnInit {
   artworkData: any;
   votesData: any;
   userId = sessionStorage.getItem('competition:uuid');
+  usersIdsFromEntriesData: any;
 
   constructor(
     public competitionsProvider: CompetitionsService,
@@ -25,6 +26,13 @@ export class SubmissionComponent implements OnInit {
     this.initialiseEntries();
     this.initialiseArtworks();
     this.getAllVotes();
+    this.getUsersFromEntries();
+  }
+
+  getUsersFromEntries() {
+    this.competitionsProvider.getUsersFromEntries().subscribe((data) => {
+      this.usersIdsFromEntriesData = data
+    });
   }
 
   initialiseEntries() {
@@ -54,7 +62,6 @@ export class SubmissionComponent implements OnInit {
     delete voteData.id;
     delete voteData.entryDate;
     voteData.vote = vote;
-    console.log(item);
     if(!item.dateAdded && !item.id) {
       voteData.dateAdded = Date.now();
       voteData.id = this.idGeneratorProvider.generateId();
@@ -79,7 +86,6 @@ export class SubmissionComponent implements OnInit {
 
   getMostVoted(artworkId) {
     let mostVoted = this.votesData.filter(item => item.vote === 'YES' && item.artworkId === artworkId).length;
-    console.log('artworkId', mostVoted);
     return { number: mostVoted, artworkId: artworkId }
   }
 }
