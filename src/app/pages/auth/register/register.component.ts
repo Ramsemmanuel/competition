@@ -48,8 +48,6 @@ export class RegisterComponent implements OnInit {
   registerUser() {
       if(this.form.value.password == this.form.value.confirmPassword) {
         this.loading = true;
-        delete this.form.value.terms;
-        delete this.form.value.confirmPassword;
         this.authService.signupUser(this.form.value)
         .subscribe(authData => {
           this.router.navigate(['/profile']);

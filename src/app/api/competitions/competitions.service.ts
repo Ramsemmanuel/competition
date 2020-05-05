@@ -42,7 +42,7 @@ export class CompetitionsService {
     }
 
     updateWork(data) {
-      return this.httpClient.put('http://localhost:3000/update-artworks/', data)
+      return this.httpClient.put('http://localhost:3000/update-artwork/', data)
     }
 
 

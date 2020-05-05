@@ -63,10 +63,6 @@ export class AuthService {
     return this.httpClient.put(`http://localhost:3000/update-user`, userData)
   }
 
-  // resetPassword(email: string): Promise<any> {
-  //   return this.afAuth.auth.sendPasswordResetEmail(email);
-  // }
-
   logoutUser() {
     return sessionStorage.removeItem('competition:uuid');
   }
@@ -76,6 +72,8 @@ export class AuthService {
     data.id = this.uuid;
     data.imageUrl = '';
     data.idDocument = '',
+    delete data.terms;
+    delete data.confirmPassword;
     sessionStorage.setItem('competition:uuid', data.id);
     return this.httpClient.post(`http://localhost:3000/create-user`, userData)
   }

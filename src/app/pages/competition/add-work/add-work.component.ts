@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { EnterCompetitionComponent } from '../enter-competition/enter-competition.component';
 import { UsersService } from 'src/app/api/users/users.service';
@@ -16,18 +16,16 @@ export class AddWorkComponent implements OnInit {
   form: FormGroup;
   userData: any;
   buttonLabel: any;
-  artworkDescription: string = '';
-  artworkSize: string = '';
-  artworkMedium: string = '';
-  artworkEditionNo: string = '';
 
   workData: any = {
     artworkDescription: '',
     artworkSize: '',
     artworkMedium: '',
     artworkEditionNo: '',
-    imageUrl: ''
+    imageUrl: '',
+    id: ''
   };
+
   imageUrl: any;
   userId = sessionStorage.getItem('competition:uuid');
   
@@ -40,11 +38,20 @@ export class AddWorkComponent implements OnInit {
     private idGeneratorProvider: IdGeneratorService,
     private snackBar: MatSnackBar
   ) {
+    this.form = this.formBuilder.group({
+      artworkDescription: [this.data.workData ? this.data.workData.artworkDescription : null, Validators.required],
+      artworkSize: [this.data.workData ? this.data.workData.artworkSize : null, Validators.required],
+      artworkMedium: [this.data.workData ? this.data.workData.artworkMedium : null, Validators.required],
+      artworkEditionNo: [this.data.workData ? this.data.workData.artworkEditionNo : null, Validators.required],
+    });
+
+    this.workData.imageUrl = this.data.workData ? this.data.workData.imageUrl : null;
+    this.workData.id = this.data.workData ? this.data.workData.id : ''
   }
 
   ngOnInit() {
-    this.buttonLabel = 'Upload artwork'
-    this.artworkDescription = this.data.workData ? this.data.workData.artworkDescription : '';
+    this.buttonLabel = 'Upload artwork';
+    console.log(this.data);
   }
 
   onCancel(): void {
@@ -58,11 +65,11 @@ export class AddWorkComponent implements OnInit {
   addWork() {
     // this.workData = Object.assign(this.data.workData , this.form.value);
     this.workData.userId = this.userId;
-    this.workData.artworkDescription = this.artworkDescription;
-    this.workData.artworkSize = this.artworkSize;
-    this.workData.artworkDescription = this.artworkDescription;
-    this.workData.artworkMedium = this.artworkMedium;
-    this.workData.artworkEditionNo = this.artworkEditionNo;
+    this.workData.artworkDescription = this.form.value.artworkDescription;
+    this.workData.artworkSize = this.form.value.artworkSize;
+    this.workData.artworkDescription = this.form.value.artworkDescription;
+    this.workData.artworkMedium = this.form.value.artworkMedium;
+    this.workData.artworkEditionNo = this.form.value.artworkEditionNo;
     if(this.workData.id) {
       // this.workData.imageUrl = this.workData.imageUrl ? this.workData.imageUrl : this.data.workData.imageUrl;
       this.competitionProviders.updateWork(this.workData).subscribe((data) => {

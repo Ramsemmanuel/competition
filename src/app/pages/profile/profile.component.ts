@@ -145,10 +145,8 @@ export class ProfileComponent implements OnInit {
         entryData.entryDate = Date.now();
         entryData.artworkId = item.id;
         entryData.id = this.idGeneratorProvider.generateId();
-        delete entryData.dateAdded;
         delete entryData.artworkDescription;
-        delete entryData.imageUrl;
-        this.competitionsProvider.enterCompetition(item).subscribe((data) => {
+        this.competitionsProvider.enterCompetition(entryData).subscribe((data) => {
           this.snackBar.open('Entry sumitted successfully', 'CLOSE', { duration: 5000 });
           this.getUserWork();
           this.getUser()
@@ -162,6 +160,8 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(AddWorkComponent, {
       width: '600px',
       data: {workData: item, userData: this.userData}
+    }).afterClosed().subscribe((data)=> {
+      this.getUserWork();
     });
   }
 
