@@ -29,8 +29,8 @@ export class CompetitionsService {
       return this.httpClient.get('http://localhost:3000/artworks/')
     }
 
-    getUserWork() {
-      return this.httpClient.post('http://localhost:3000/user-artworks/', {id: this.userId});
+    getUserWork(user) {
+      return this.httpClient.post('http://localhost:3000/user-artworks/', {id: user});
     }
 
     getartWorkDetails(artworkId) {

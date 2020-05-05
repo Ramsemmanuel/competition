@@ -42,7 +42,6 @@ export class ProfileComponent implements OnInit {
     this.form = this.formBuilder.group({
       bio: [this.userData ? this.userData.bio : null, Validators.required],
     });
-    this.getUserWork();
   }
 
   ngOnInit() {
@@ -52,7 +51,6 @@ export class ProfileComponent implements OnInit {
       this.competitionsData = data;
     });
     this.getUser();
-    // location.reload();
   }
 
   getUserArtworkSubmitted(work) {
@@ -62,6 +60,7 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.authProvider.getLoggedInUser().subscribe((data)=> {
       this.userData = data[0];
+      this.getUserWork()
       if(data[0]) {
         this.form.patchValue({bio: this.userData.bio ? this.userData.bio : '' });
       }
@@ -76,7 +75,7 @@ export class ProfileComponent implements OnInit {
 
   getUserWork() {
     this.loadingWorkData = true;
-    this.competitionsProvider.getUserWork().subscribe((data) => {
+    this.competitionsProvider.getUserWork(this.userData.id).subscribe((data) => {
         this.userWorkData = data;
         this.loadingWorkData = false;
     });
