@@ -47,10 +47,15 @@
 
 
     </mat-tab>
-    <mat-tab label="Leaderboard" *ngIf="votesData">
+   
+   <!-- hide leaderboard -->
+    
+   <!--<mat-tab label="Leaderboard" *ngIf="votesData">
         <div class="d-flex justify-content-between" *ngFor="let item of entriesData">
             {{ item.artworkId }} - {{ getMostVoted(item.artworkId).number }}
         </div>
     </mat-tab>
+  -->
+    <!-- end-->
   </mat-tab-group>
 
