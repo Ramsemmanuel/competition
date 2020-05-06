@@ -60,8 +60,8 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.authProvider.getLoggedInUser().subscribe((data)=> {
       this.userData = data[0];
-      this.getUserWork()
       if(data[0]) {
+      this.getUserWork();
         this.form.patchValue({bio: this.userData.bio ? this.userData.bio : '' });
       }
       else {
