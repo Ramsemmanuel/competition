@@ -26,29 +26,29 @@ export class CompetitionsService {
   }
 
     getArtworks() {
-      return this.httpClient.get('https://latelierapi.ftech.aws.dsarena.com/artworks/')
+      return this.httpClient.get('http://localhost:3000/artworks/')
     }
 
     getUserWork(user) {
-      return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/user-artworks/', {id: user});
+      return this.httpClient.post('http://localhost:3000/user-artworks/', {id: user});
     }
 
     getartWorkDetails(artworkId) {
-      return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/user-artwork/', {id: artworkId});
+      return this.httpClient.post('http://localhost:3000/user-artwork/', {id: artworkId});
     }
 
     addArtworkWork(data) {
-      return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/add-artwork/', data)
+      return this.httpClient.post('http://localhost:3000/add-artwork/', data)
     }
 
     updateWork(data) {
-      return this.httpClient.put('https://latelierapi.ftech.aws.dsarena.com/update-artwork/', data)
+      return this.httpClient.put('http://localhost:3000/update-artwork/', data)
     }
 
 
     deleteWork(data) {
       let workId = data.id;
-      return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/delete-artwork/', {id: workId})
+      return this.httpClient.post('http://localhost:3000/delete-artwork/', {id: workId})
     }
 
     getCompetitions() {
@@ -75,31 +75,31 @@ export class CompetitionsService {
 
     // ENTRIES
     enterCompetition(data) {
-        return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/competition-entry/', data)
+        return this.httpClient.post('http://localhost:3000/competition-entry/', data)
     }
 
     getUserArtworkEntry() {
-      return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/user-entries/', {userId: this.userId});
+      return this.httpClient.post('http://localhost:3000/user-entries/', {userId: this.userId});
     }
 
     getAllEntries() {
-      return this.httpClient.get('https://latelierapi.ftech.aws.dsarena.com/entries/');
+      return this.httpClient.get('http://localhost:3000/entries/');
     }
     updateEntry(data) {
-      return this.httpClient.put('https://latelierapi.ftech.aws.dsarena.com/update-entry/', data)
+      return this.httpClient.put('http://localhost:3000/update-entry/', data)
     }
     getUsersFromEntries() {
-      return this.httpClient.get('https://latelierapi.ftech.aws.dsarena.com/entries-user-ids/')
+      return this.httpClient.get('http://localhost:3000/entries-user-ids/')
     }
 
     // VOTES
     updateVote(data) {
-      return this.httpClient.put('https://latelierapi.ftech.aws.dsarena.com/update-vote/', data)
+      return this.httpClient.put('http://localhost:3000/update-vote/', data)
     }
     addVote(data) {
-      return this.httpClient.post('https://latelierapi.ftech.aws.dsarena.com/add-vote/', data)
+      return this.httpClient.post('http://localhost:3000/add-vote/', data)
     }
     getAllVotes() {
-      return this.httpClient.get('https://latelierapi.ftech.aws.dsarena.com/votes/');
+      return this.httpClient.get('http://localhost:3000/votes/');
     }
 }
