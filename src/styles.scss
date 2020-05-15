@@ -70,6 +70,16 @@ $hamburger-hover-opacity       : 0.7 !default;
 @import '~hamburgers/_sass/hamburgers/hamburgers';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;400;700&display=swap');
 
+// 2. Import default variables and available mixins.
+@import "uikit/src/scss/variables-theme.scss";
+@import "uikit/src/scss/mixins-theme.scss";
+
+// 3. Your custom mixin overwrites.
+@mixin hook-card() { color: #000; }
+
+// 4. Import UIkit.
+@import "uikit/src/scss/uikit-theme.scss";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Source Sans Pro', sans-serif; }
 .select-input {

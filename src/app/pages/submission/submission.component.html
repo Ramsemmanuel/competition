@@ -1,56 +1,35 @@
-<mat-tab-group>
-    <mat-tab label="Submissions">
-        <div class="list-group list-group list-group-flush my-4" *ngIf="false">
-            <li class="list-group-item list-group-item-action px-0" *ngFor="let item of entriesData">
-                <div class="d-flex justify-content-between" *ngIf="artworkData">
-                    <div class="d-flex justify-content-start">
-                        <div class="artwork-thumbnail border-dark" [ngStyle]="{'background-image': 'url('+ getArtworkDetails(item.artworkId)?.imageUrl +')'}"></div>
-                        <div class="align-self-center ml-3">
-                            <h3>{{ getArtworkDetails(item.artworkId)?.artworkDescription }}</h3>
-                            <p class="m-0">{{ getArtworkDetails(item.artworkId)?.artworkDescription }}</p>
-                            <span class="text-muted">
-                                {{ item.entryDate | date: 'mediumDate'}}
-                                {{ item.userId }}
-                            </span>
-                        </div>
-                   
-                    </div>
-                    <div class="align-self-center">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-danger" (click)="castVote('NO', item)">No</button>
-                            <button type="button" class="btn btn-primary" (click)="castVote('YES', item)">Yes</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
+<div class="uk-flex uk-flex-center text-center uk-margin">
+  <div class="uk-flex-1">
+    <p>Processed</p>
+    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+  </div>
+  <div class="uk-flex-1 uk-margin-left">
+    <p>Remaining</p>
+    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+  </div>
+  <div class="uk-flex-1 uk-margin-left">
+    <p>Approved</p>
+    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+  </div>
+  <div class="uk-flex-1 uk-margin-left">
+    <p>Not Approved</p>
+    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+  </div>
+</div>
+
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true;finite: false">
+  <ul class="uk-slider-items uk-grid" uk-height-viewport="offset-top: true; offset-bottom: 30">
+      <li class="uk-width-3-4" *ngFor="let item of entriesData">
+          <div class="uk-panel">
+              <img src="{{ getArtworkDetails(item.artworkId)?.imageUrl }}" alt="">
+          </div>
+          <div class="uk-button-group uk-flex">
+            <button class="uk-button uk-flex-1 btn-primary">Yes</button>
+            <button class="uk-button uk-flex-1 btn-primary">No</button>
         </div>
+      </li>
+  </ul>
 
-        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-          <ngb-panel title="{{ item.userId }}" *ngFor="let item of usersIdsFromEntriesData">
-            <ng-template ngbPanelContent>
-              <div class="row">
-                <div class="col-md-3 col-sm-12 my-2" *ngFor="let work of entriesData">
-                  <div class="card" *ngIf="work.userId === item.userId">
-                    <div class="artwork-thumbnail border-dark" [ngStyle]="{'background-image': 'url('+ getArtworkDetails(work.artworkId)?.imageUrl +')'}"></div>
-                    <div class="card-body">
-                      <h5 class="card-title">Id: {{ work.artworkId }}</h5>
-                      <button href="" class="btn btn-outline-primary">Yes</button>
-                      <button href="" class="btn btn-outline-primary ml-3">No</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
-
-
-    </mat-tab>
-    <mat-tab label="Leaderboard" *ngIf="votesData">
-        <div class="d-flex justify-content-between" *ngFor="let item of entriesData">
-            {{ item.artworkId }} - {{ getMostVoted(item.artworkId).number }}
-        </div>
-    </mat-tab>
-  </mat-tab-group>
-
+  <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+  <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+</div>
