@@ -67,7 +67,6 @@ export class AddWorkComponent implements OnInit {
     this.workData.userId = this.userId;
     this.workData.artworkDescription = this.form.value.artworkDescription;
     this.workData.artworkSize = this.form.value.artworkSize;
-    this.workData.artworkDescription = this.form.value.artworkDescription;
     this.workData.artworkMedium = this.form.value.artworkMedium;
     this.workData.artworkEditionNo = this.form.value.artworkEditionNo;
     if(this.workData.id) {
