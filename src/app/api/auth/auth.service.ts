@@ -36,7 +36,7 @@ export class AuthService {
   ) {}
 
   loginUser(newEmail: string, newPassword: string) {
-    return this.httpClient.post(`https://latelierapi.ftech.aws.dsarena.com/login`, {email: newEmail, password: newPassword}).subscribe((data) => {
+    return this.httpClient.post(`http://localhost:3000/login`, {email: newEmail, password: newPassword}).subscribe((data) => {
       let userData = data;
       if(data['code'] === 200) {
         sessionStorage.setItem('competition:uuid', data['data'].id);
@@ -51,16 +51,16 @@ export class AuthService {
 
   getLoggedInUser() {
     let userId = sessionStorage.getItem('competition:uuid');
-    return this.httpClient.post(`https://latelierapi.ftech.aws.dsarena.com/get-user`, {id: userId});
+    return this.httpClient.post(`http://localhost:3000/get-user`, {id: userId});
   }
 
   getUserByEmail(data) {
-    return this.httpClient.post(`https://latelierapi.ftech.aws.dsarena.com/get-user-by-email`, {email: data});
+    return this.httpClient.post(`http://localhost:3000/get-user-by-email`, {email: data});
   }
 
 
   updateUser(userData) {
-    return this.httpClient.put(`https://latelierapi.ftech.aws.dsarena.com/update-user`, userData)
+    return this.httpClient.put(`http://localhost:3000/update-user`, userData)
   }
 
   logoutUser() {
@@ -75,7 +75,7 @@ export class AuthService {
     delete data.terms;
     delete data.confirmPassword;
     sessionStorage.setItem('competition:uuid', data.id);
-    return this.httpClient.post(`https://latelierapi.ftech.aws.dsarena.com/create-user`, userData)
+    return this.httpClient.post(`http://localhost:3000/create-user`, userData)
   }
 
   sendEmailForPasswordReset(message: PasswordResetModel): Observable<PasswordResetModel> | any {
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   resetPassword(userData) {
-    return this.httpClient.put(`https://latelierapi.ftech.aws.dsarena.com/update-user`, userData)
+    return this.httpClient.put(`http://localhost:3000/update-user`, userData)
   }
 
   currentUser(): any {

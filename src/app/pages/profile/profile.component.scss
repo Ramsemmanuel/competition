@@ -57,7 +57,12 @@
         // width: 100%;
     }
 }
-
+.submitted-btn{
+    pointer-events: none;
+    cursor: none;
+    background-color: green;
+    border: green;
+}
 .artwork-thumbnail {
     min-height: 300px;
     background-position: center;
