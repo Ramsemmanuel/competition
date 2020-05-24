@@ -144,7 +144,6 @@ export class ProfileComponent implements OnInit {
         entryData.entryDate = Date.now();
         entryData.artworkId = item.id;
         entryData.id = this.idGeneratorProvider.generateId();
-        delete entryData.artworkDescription;
         this.competitionsProvider.enterCompetition(entryData).subscribe((data) => {
           this.snackBar.open('Entry sumitted successfully', 'CLOSE', { duration: 5000 });
           this.getUserWork();

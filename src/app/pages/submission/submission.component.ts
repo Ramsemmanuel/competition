@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CompetitionsService } from 'src/app/api/competitions/competitions.service';
 import { MatSnackBar } from '@angular/material';
 import { IdGeneratorService } from 'src/app/providers/id-generator/id-generator.service';
+import { AuthService } from 'src/app/api/auth/auth.service';
+import { Router } from '@angular/router';
+
+declare var UIkit;
 
 @Component({
   selector: 'app-submission',
@@ -18,19 +22,39 @@ export class SubmissionComponent implements OnInit {
   unApprovedEntries: any;
   remainingEntries: any;
   processedEntries: any;
+  usersData: Object;
+  artworkOnPreview: any;
 
   constructor(
     public competitionsProvider: CompetitionsService,
+    public usersProvider: AuthService,
     public snackBar: MatSnackBar,
+    private router: Router,
     private idGeneratorProvider: IdGeneratorService,
   ) {
   }
 
   ngOnInit() {
-    this.initialiseEntries();
-    this.initialiseArtworks();
-    this.getAllVotes();
-    this.getUsersFromEntries();
+    this.getUser();
+  }
+
+  onArtworkView(item) {
+    this.artworkOnPreview = item;
+    UIkit.modal('#artwork-preview').show();
+  }
+
+  getUser() {
+    this.usersProvider.getLoggedInUser().subscribe((data)=> {
+      if(data[0]) {
+        this.initialiseEntries();
+        this.initialiseArtworks();
+        this.getAllVotes();
+        this.getUsersFromEntries();
+      }
+      else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   getUsersFromEntries() {
@@ -59,6 +83,10 @@ export class SubmissionComponent implements OnInit {
       this.processedEntries = this.approvedEntries.length + this.unApprovedEntries.length;
       this.remainingEntries = this.entriesData.length - (this.approvedEntries.length + this.unApprovedEntries.length);
     });
+  }
+
+  getUserDetails(id) {
+    return this.usersIdsFromEntriesData.find((user) => user.id === id)
   }
 
   groupByUser(arr, key) {
@@ -94,7 +122,6 @@ export class SubmissionComponent implements OnInit {
       vote: vote
     };
 
-    // console.log(this.checkIfVoteExists(item.userId));
     if(!this.checkIfVoteExists(item.userId)) {
       console.log(voteData);
       this.competitionsProvider.addVote(voteData).subscribe((data) => {

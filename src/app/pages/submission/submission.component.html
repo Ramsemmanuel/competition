@@ -2,7 +2,11 @@
 <h2 class="uk-text-center">You are assigned to Group A</h2>
 <hr style="margin: 0 -16px;">
 
-<div class="uk-flex uk-flex-center text-center uk-margin uk-margin-large-bottom">
+<div class="uk-text-center uk-margin-large" *ngIf="entriesData?.length < 1">
+  <p>No entries submitted yet</p>
+</div>
+
+<div class="uk-flex uk-flex-center text-center uk-margin uk-margin-large-bottom" *ngIf="entriesData?.length > 0">
   <div class="uk-flex-1">
     <p>Processed</p>
     <h3 class="mt-0">{{ processedEntries }}/{{ entriesData?.length }}</h3>
@@ -21,27 +25,26 @@
   </div>
 </div>
 
-<div class="uk-position-relative uk-visible-toggle entries-container" tabindex="-1" uk-slider="center: true;finite: false;">
+<div class="uk-position-relative uk-visible-toggle entries-container" tabindex="-1" uk-slider="center: true;finite: false;" *ngIf="entriesData?.length > 0">
   <ul class="uk-slider-items uk-grid" uk-height-viewport="offset-top: true; offset-bottom: 30">
       <li class="uk-width-3-4 artwork-item" *ngFor="let entry of entriesData">
 
           <div class="uk-position-relative uk-visible-toggle" tabindex="-1" uk-slideshow="clsActivated: uk-transition-active;">
             <div class="uk-padding-small artwork-intro uk-background-muted">
-              <h4>Heading</h4>
-              <p class="uk-margin-remove">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis reprehenderit adipisci distinctio asperiores corrupti ipsum tempore ipsa nobis accusantium quidem impedit inventore illum et rem quam doloremque, aperiam dolore iste!</p>
+              <h4>Portfolio statement</h4>
+              <p *ngIf="usersIdsFromEntriesData" class="uk-margin-remove">{{ getUserDetails(entry.userId)?.bio || 'Not provided' }}</p>
             </div>
             <ul class="uk-slideshow-items">
-                <li *ngFor="let item of entry.data">
+                <li *ngFor="let item of entry.data" style="cursor: pointer;" (click)="onArtworkView(item)">
                     <img src="{{ item.imageUrl }}" alt="" uk-cover>
                     <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom artwork-caption">
-                        <h3 class="uk-margin-remove">{{ item.artworkDescription }}</h3>
-                        <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <h3 class="uk-margin-remove">{{ item.artworkDescription || 'No title' }}</h3>
                     </div>
                 </li>
             </ul>
-        
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+            
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-light" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-light" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
           
         </div>
 
@@ -55,5 +58,16 @@
     <a href="#" uk-slidenav-previous uk-slider-item="previous"></a>
     <a href="#" uk-slidenav-next uk-slider-item="next"></a>
   </div>
+</div>
 
+<div id="artwork-preview" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-padding-remove uk-width-1-1">
+      <button class="uk-modal-close-outside" type="button" uk-close></button>
+      <div class="uk-grid-collapse uk-child-width-1-1@s uk-flex-middle" uk-grid>
+        <div class="uk-background-contain artwork-preview-image" [ngStyle]="{'background-image': 'url('+ artworkOnPreview?.imageUrl +')'}" uk-height-1-1></div>
+        <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-light">
+          <p>{{ artworkOnPreview?.artworkDescription || 'No title' }}</p>
+        </div>
+    </div>
+  </div>
 </div>

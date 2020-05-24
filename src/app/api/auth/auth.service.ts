@@ -49,6 +49,10 @@ export class AuthService {
     })
   }
 
+  getAllUsers() {
+    return this.httpClient.get('http://localhost:3000/users/');
+  }
+
   getLoggedInUser() {
     let userId = sessionStorage.getItem('competition:uuid');
     return this.httpClient.post(`http://localhost:3000/get-user`, {id: userId});
