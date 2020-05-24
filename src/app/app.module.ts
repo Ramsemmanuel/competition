@@ -76,10 +76,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [
     AngularFirestore,
+    AngularFireDatabase,
     AuthService,
     UsersService,
     CompetitionsService,
-    AngularFireDatabase,
     ConfirmDialogService,
     IdGeneratorService
   ],

@@ -14,6 +14,10 @@ export class SubmissionComponent implements OnInit {
   votesData: any;
   userId = sessionStorage.getItem('competition:uuid');
   usersIdsFromEntriesData: any;
+  approvedEntries: any;
+  unApprovedEntries: any;
+  remainingEntries: any;
+  processedEntries: any;
 
   constructor(
     public competitionsProvider: CompetitionsService,
@@ -31,13 +35,13 @@ export class SubmissionComponent implements OnInit {
 
   getUsersFromEntries() {
     this.competitionsProvider.getUsersFromEntries().subscribe((data) => {
-      this.usersIdsFromEntriesData = data
+      this.usersIdsFromEntriesData = data;
     });
   }
 
   initialiseEntries() {
     this.competitionsProvider.getAllEntries().subscribe((data) => {
-      this.entriesData = data;
+      this.entriesData = this.groupByUser(data, 'userId');
     });
   }
 
@@ -50,42 +54,66 @@ export class SubmissionComponent implements OnInit {
   getAllVotes() {
     this.competitionsProvider.getAllVotes().subscribe((data) => {
       this.votesData = data;
+      this.approvedEntries = this.votesData.filter((item) => item.vote === 'YES');
+      this.unApprovedEntries = this.votesData.filter((item) => item.vote === 'NO');
+      this.processedEntries = this.approvedEntries.length + this.unApprovedEntries.length;
+      this.remainingEntries = this.entriesData.length - (this.approvedEntries.length + this.unApprovedEntries.length);
     });
+  }
+
+  groupByUser(arr, key) {
+    let newArr = [],
+        types = {},
+        newItem, i, j, cur;
+    for (i = 0, j = arr.length; i < j; i++) {
+      cur = arr[i];
+      if (!(cur[key] in types)) {
+          types[cur[key]] = { userId: cur[key], data: [] };
+          newArr.push(types[cur[key]]);
+      }
+      types[cur[key]].data.push(cur);
+    }
+    return newArr;
   }
 
   getArtworkDetails(id) {
     return this.artworkData.find((item) => item.id === id)
   }
 
+  checkIfVoteExists(entryUserId) {
+      return this.votesData.find((vote) => vote.entryUserId === entryUserId);
+  }
+
   castVote(vote, item) {
-    let voteData = item;
-    delete voteData.id;
-    delete voteData.entryDate;
-    voteData.vote = vote;
-    if(!item.dateAdded && !item.id) {
-      voteData.dateAdded = Date.now();
-      voteData.id = this.idGeneratorProvider.generateId();
-      voteData.voterId = this.userId;
+    let voteData = {
+      id: this.idGeneratorProvider.generateId(),
+      voterId: this.userId,
+      modifiedDate: null,
+      dateAdded: Date.now(),
+      entryUserId: item.userId,
+      vote: vote
+    };
+
+    // console.log(this.checkIfVoteExists(item.userId));
+    if(!this.checkIfVoteExists(item.userId)) {
+      console.log(voteData);
       this.competitionsProvider.addVote(voteData).subscribe((data) => {
-        this.snackBar.open('Vote casted successfully', 'CLOSE', { duration: 5000 });
+        this.snackBar.open('Vote updated successfully', 'CLOSE', { duration: 5000 });
         this.initialiseEntries();
         this.initialiseArtworks();
         this.getAllVotes();
-      })
+      });
     }
     else {
       voteData.modifiedDate = Date.now();
+      voteData = this.checkIfVoteExists(item.userId);
+      voteData.vote = vote;
       this.competitionsProvider.updateVote(voteData).subscribe((data) => {
         this.snackBar.open('Vote updated successfully', 'CLOSE', { duration: 5000 });
         this.initialiseEntries();
         this.initialiseArtworks();
         this.getAllVotes();
-      })
+      });
     }
-  }
-
-  getMostVoted(artworkId) {
-    let mostVoted = this.votesData.filter(item => item.vote === 'YES' && item.artworkId === artworkId).length;
-    return { number: mostVoted, artworkId: artworkId }
   }
 }

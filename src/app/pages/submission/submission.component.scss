@@ -6,3 +6,37 @@
     background-size: cover;
     cursor: pointer;
 }
+.entries-container {
+    overflow: visible;
+}
+.artwork-item {
+    &>div {
+        border: 1px solid #eaeaea;
+    }
+    &:not(.uk-active) {
+        &>div {
+            // opacity: 0.3;
+        }
+        .artwork-caption {
+            
+        }
+        .uk-slidenav {
+          visibility: hidden;  
+        }
+    }
+
+    .artwork-intro {
+        h4 {
+            font-weight: 700;
+        }
+    }
+}
+
+.top-artwork-nav {
+    background: white;
+    width: 100px;
+    height: 50px;
+    text-align: right;
+    top: -60px;
+    padding: 8px;
+}

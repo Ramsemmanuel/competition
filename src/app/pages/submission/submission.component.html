@@ -1,35 +1,59 @@
-<div class="uk-flex uk-flex-center text-center uk-margin">
+
+<h2 class="uk-text-center">You are assigned to Group A</h2>
+<hr style="margin: 0 -16px;">
+
+<div class="uk-flex uk-flex-center text-center uk-margin uk-margin-large-bottom">
   <div class="uk-flex-1">
     <p>Processed</p>
-    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+    <h3 class="mt-0">{{ processedEntries }}/{{ entriesData?.length }}</h3>
   </div>
   <div class="uk-flex-1 uk-margin-left">
     <p>Remaining</p>
-    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+    <h3 class="mt-0">{{ remainingEntries }}/{{ entriesData?.length }}</h3>
   </div>
   <div class="uk-flex-1 uk-margin-left">
     <p>Approved</p>
-    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+    <h3 class="mt-0">{{ approvedEntries?.length }}/{{ entriesData?.length }}</h3>
   </div>
   <div class="uk-flex-1 uk-margin-left">
     <p>Not Approved</p>
-    <h3 class="mt-0">1/{{ entriesData.length }}</h3>
+    <h3 class="mt-0">{{ unApprovedEntries?.length }}/{{ entriesData?.length }}</h3>
   </div>
 </div>
 
-<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true;finite: false">
+<div class="uk-position-relative uk-visible-toggle entries-container" tabindex="-1" uk-slider="center: true;finite: false;">
   <ul class="uk-slider-items uk-grid" uk-height-viewport="offset-top: true; offset-bottom: 30">
-      <li class="uk-width-3-4" *ngFor="let item of entriesData">
-          <div class="uk-panel">
-              <img src="{{ getArtworkDetails(item.artworkId)?.imageUrl }}" alt="">
-          </div>
-          <div class="uk-button-group uk-flex">
-            <button class="uk-button uk-flex-1 btn-primary">Yes</button>
-            <button class="uk-button uk-flex-1 btn-primary">No</button>
+      <li class="uk-width-3-4 artwork-item" *ngFor="let entry of entriesData">
+
+          <div class="uk-position-relative uk-visible-toggle" tabindex="-1" uk-slideshow="clsActivated: uk-transition-active;">
+            <div class="uk-padding-small artwork-intro uk-background-muted">
+              <h4>Heading</h4>
+              <p class="uk-margin-remove">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis reprehenderit adipisci distinctio asperiores corrupti ipsum tempore ipsa nobis accusantium quidem impedit inventore illum et rem quam doloremque, aperiam dolore iste!</p>
+            </div>
+            <ul class="uk-slideshow-items">
+                <li *ngFor="let item of entry.data">
+                    <img src="{{ item.imageUrl }}" alt="" uk-cover>
+                    <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom artwork-caption">
+                        <h3 class="uk-margin-remove">{{ item.artworkDescription }}</h3>
+                        <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </li>
+            </ul>
+        
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+          
+        </div>
+
+        <div class="uk-button-group uk-flex uk-margin uk-light">
+          <button class="uk-button uk-flex-1 btn-primary" (click)="castVote('YES', entry)">Yes</button>
+          <button class="uk-button uk-flex-1 btn-primary" (click)="castVote('NO', entry)">No</button>
         </div>
       </li>
   </ul>
+  <div class="uk-position-top-right top-artwork-nav">
+    <a href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+    <a href="#" uk-slidenav-next uk-slider-item="next"></a>
+  </div>
 
-  <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-  <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 </div>

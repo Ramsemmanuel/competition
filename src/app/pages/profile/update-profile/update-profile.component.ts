@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { UsersService } from 'src/app/api/users/users.service';
 import { Country } from '@angular-material-extensions/select-country';
 import { ReplaySubject } from 'rxjs';
-import { countriesData } from 'src/app/data/country-list/countries';
 import { AuthService } from 'src/app/api/auth/auth.service';
+import { selectedCountriesData } from 'src/app/data/country-list/selected-countries';
 
   interface country {
     name: string,
@@ -24,7 +24,7 @@ export class UpdateProfileComponent implements OnInit {
   public countryCtrl: FormControl = new FormControl();
   public countryFilterCtrl: FormControl = new FormControl();
 
-  public countriesData: any[] = countriesData;
+  public countriesData: any[] = selectedCountriesData;
   selectedCountry: any;
   
   constructor(
