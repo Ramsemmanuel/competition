@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material';
 import { IdGeneratorService } from 'src/app/providers/id-generator/id-generator.service';
 import { AuthService } from 'src/app/api/auth/auth.service';
 import { Router } from '@angular/router';
+import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+
 
 declare var UIkit;
 
@@ -24,6 +26,10 @@ export class SubmissionComponent implements OnInit {
   processedEntries: any;
   usersData: Object;
   artworkOnPreview: any;
+  toggleEdit: boolean = false;
+  form: FormGroup;
+  userData: any;
+  buttonLabel: string;
 
   constructor(
     public competitionsProvider: CompetitionsService,
@@ -31,7 +37,14 @@ export class SubmissionComponent implements OnInit {
     public snackBar: MatSnackBar,
     private router: Router,
     private idGeneratorProvider: IdGeneratorService,
+    private formBuilder: FormBuilder,
+    public authProvider: AuthService,
+
+    
   ) {
+    this.form = this.formBuilder.group({
+      comments: [this.userData ? this.userData.comments : null, Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -50,6 +63,8 @@ export class SubmissionComponent implements OnInit {
         this.initialiseArtworks();
         this.getAllVotes();
         this.getUsersFromEntries();
+        this.form.patchValue({comments: this.userData.comments ? this.userData.comments : '' });
+
       }
       else {
         this.router.navigate(['/login']);
@@ -61,6 +76,21 @@ export class SubmissionComponent implements OnInit {
     this.competitionsProvider.getUsersFromEntries().subscribe((data) => {
       this.usersIdsFromEntriesData = data;
     });
+  }
+
+  callUserUpdate(userData) {
+    this.authProvider.updateUser(userData).subscribe(data => {
+      this.snackBar.open(data['message'], 'CLOSE', { duration: 5000 });
+      this.toggleEdit = false;
+      this.getUser();
+    });
+  }
+
+  savecomments() {
+    this.userData.comments = this.form.value.comments;
+    if(this.userData.id) {
+      this.callUserUpdate(this.userData);
+    }
   }
 
   initialiseEntries() {
