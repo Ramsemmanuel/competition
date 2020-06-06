@@ -50,16 +50,23 @@ export class RegisterComponent implements OnInit {
         this.loading = true;
         this.authService.signupUser(this.form.value)
         .subscribe(authData => {
-          this.router.navigate(['/profile']);
+          console.log(authData);
+          if(authData['code'] !== 200) {
+            this.snackBar.open(authData['message'], 'CLOSE', { duration: 5000 });
+          }
+          else {
+            this.router.navigate(['/profile']);
+          }
           this.loading = false;
         }, error => {
-          this.snackBar.open(error.message, 'CLOSE', { duration: 1000000 });
+          console.log(error);
+          this.snackBar.open(error.message, 'CLOSE', { duration: 5000 });
           this.loading = false;
         });
       }
       else {
         this.loading = false;
-        this.snackBar.open('Form is not valid', 'CLOSE', { duration: 2000 });
+        this.snackBar.open('Form is not valid', 'CLOSE', { duration: 5000 });
       }
     }
 

@@ -102,4 +102,16 @@ export class CompetitionsService {
     getAllVotes() {
       return this.httpClient.get('http://localhost:3000/votes/');
     }
+
+
+    // VIEWS
+    addView(data) {
+      return this.httpClient.post('http://localhost:3000/add-view/', data);
+    }
+    updateView(data) {
+      return this.httpClient.put('http://localhost:3000/update-view/', data);
+    }
+    getViews(id) {
+      return this.httpClient.post('http://localhost:3000/view/', {userId: id});
+    }
 }

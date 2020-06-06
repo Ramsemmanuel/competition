@@ -27,9 +27,11 @@ export class SubmissionComponent implements OnInit {
   usersData: Object;
   artworkOnPreview: any;
   toggleEdit: boolean = false;
-  form: FormGroup;
-  userData: any;
+  viewsForm: FormGroup;
+  viewsData: any;
   buttonLabel: string;
+  toggleEditComment: boolean = false;
+  toggleEditReason: boolean = false;
 
   constructor(
     public competitionsProvider: CompetitionsService,
@@ -42,8 +44,9 @@ export class SubmissionComponent implements OnInit {
 
     
   ) {
-    this.form = this.formBuilder.group({
-      comments: [this.userData ? this.userData.comments : null, Validators.required],
+    this.viewsForm = this.formBuilder.group({
+      comment: [this.viewsData ? this.viewsData.comment : null, Validators.nullValidator],
+      reason: [this.viewsData ? this.viewsData.reason : null, Validators.nullValidator]
     });
   }
 
@@ -56,14 +59,25 @@ export class SubmissionComponent implements OnInit {
     UIkit.modal('#artwork-preview').show();
   }
 
+  getViews(id) {
+    this.competitionsProvider.getViews(id).subscribe((data) => {
+      this.viewsData = data[0];
+      this.viewsForm = this.formBuilder.group({
+        comment: [this.viewsData ? this.viewsData.comment : null, Validators.nullValidator],
+        reason: [this.viewsData ? this.viewsData.reason : null, Validators.nullValidator]
+      });
+    })
+  }
+
   getUser() {
     this.usersProvider.getLoggedInUser().subscribe((data)=> {
       if(data[0]) {
+        this.getViews(data[0].id)
         this.initialiseEntries();
         this.initialiseArtworks();
         this.getAllVotes();
         this.getUsersFromEntries();
-        this.form.patchValue({comments: this.userData.comments ? this.userData.comments : '' });
+        // this.viewsForm.patchValue({comments: this.userData.comments ? this.userData.comments : '' });
 
       }
       else {
@@ -78,18 +92,31 @@ export class SubmissionComponent implements OnInit {
     });
   }
 
-  callUserUpdate(userData) {
-    this.authProvider.updateUser(userData).subscribe(data => {
-      this.snackBar.open(data['message'], 'CLOSE', { duration: 5000 });
-      this.toggleEdit = false;
-      this.getUser();
-    });
-  }
+  saveViews() {
+    let viewsData = this.viewsForm.value;
+    viewsData.userId = this.userId;
+    if(this.userId && (viewsData.comment || viewsData.reason)) {
+      // Update
+      if(this.viewsData) {
+        viewsData.id = this.viewsData.id;
+        this.competitionsProvider.updateView(viewsData).subscribe((data) => {
+          this.getViews(this.userId);
+          this.toggleEditComment = false;
+          this.toggleEditReason = false;
+          this.snackBar.open('Views updated successfully', 'CLOSE', { duration: 5000 });
+        })
+      }
+      // Add
+      else {
+        viewsData.id = this.idGeneratorProvider.generateId();
+        this.competitionsProvider.addView(viewsData).subscribe((data) => {
+          this.getViews(this.userId);
+          this.toggleEditComment = false;
+          this.toggleEditReason = false;
+          this.snackBar.open('Views Added successfully', 'CLOSE', { duration: 5000 });
+        })
+      }
 
-  savecomments() {
-    this.userData.comments = this.form.value.comments;
-    if(this.userData.id) {
-      this.callUserUpdate(this.userData);
     }
   }
 
