@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/api/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 
-
 declare var UIkit;
 
 @Component({
