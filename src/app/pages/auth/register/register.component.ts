@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { AuthService } from 'src/app/api/auth/auth.service';
 import { Router } from '@angular/router';
 import { Country } from '@angular-material-extensions/select-country';
+import { MustMatch } from 'src/app/_helpers/must-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -29,9 +30,11 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       cellNumber: ['', Validators.required],
-      terms: [true, Validators.required],
+      terms: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
     })
   }
 
@@ -42,19 +45,11 @@ export class RegisterComponent implements OnInit {
     // console.log($event);
   }
 
-  passwordMatch() {
-    return this.form.value.password == this.form.value.confirmPassword;
-  }
-
-  get registerForm() {
-    return {
-      controls: this.form.controls,
-      pristine: this.form.touched,
-    }
-  }
+  get registerForm() { return this.form.controls; }
 
   registerUser() {
     this.submitted = true;
+    console.log(this.form.controls);
     if (this.form.invalid) {
       this.loading = false;
       return;
