@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "competition"
+  "defaultProject": "competition",
+  "cli": {
+    "analytics": false
+  }
 }
