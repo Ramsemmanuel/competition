@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   password: string;
   loading: boolean = false;
   form: FormGroup;
+  submitted: boolean;
   
   constructor(
     public authService: AuthService,
@@ -28,9 +29,9 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       cellNumber: ['', Validators.required],
-      terms: ['', Validators.required],
+      terms: [true, Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
     })
   }
 
@@ -45,29 +46,35 @@ export class RegisterComponent implements OnInit {
     return this.form.value.password == this.form.value.confirmPassword;
   }
 
+  get registerForm() {
+    return {
+      controls: this.form.controls,
+      pristine: this.form.touched,
+    }
+  }
+
   registerUser() {
-      if(this.form.value.password == this.form.value.confirmPassword) {
-        this.loading = true;
-        this.authService.signupUser(this.form.value)
-        .subscribe(authData => {
-          console.log(authData);
-          if(authData['code'] !== 200) {
-            this.snackBar.open(authData['message'], 'CLOSE', { duration: 5000 });
-          }
-          else {
-            this.router.navigate(['/profile']);
-          }
-          this.loading = false;
-        }, error => {
-          console.log(error);
-          this.snackBar.open(error.message, 'CLOSE', { duration: 5000 });
-          this.loading = false;
-        });
+    this.submitted = true;
+    if (this.form.invalid) {
+      this.loading = false;
+      return;
+    }
+    this.loading = true;
+    this.authService.signupUser(this.form.value)
+    .subscribe(authData => {
+      console.log(authData);
+      if(authData['code'] !== 200) {
+        this.snackBar.open(authData['message'], 'CLOSE', { duration: 5000 });
       }
       else {
-        this.loading = false;
-        this.snackBar.open('Form is not valid', 'CLOSE', { duration: 5000 });
+        this.router.navigate(['/profile']);
       }
+      this.loading = false;
+    }, error => {
+      console.log(error);
+      this.snackBar.open(error.message, 'CLOSE', { duration: 5000 });
+      this.loading = false;
+    });
     }
 
 }
