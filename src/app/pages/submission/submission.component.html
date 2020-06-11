@@ -9,19 +9,19 @@
 <div class="uk-flex uk-flex-center text-center uk-margin uk-margin-large-bottom" *ngIf="entriesData?.length > 0">
   <div class="uk-flex-1">
     <p>Processed</p>
-    <h3 class="mt-0 border-left border-right">{{ processedEntries }}/{{ entriesData?.length }}</h3>
+    <h3 class="mt-0 brackets">{{ processedEntries }}/{{ entriesData?.length }}</h3>
   </div>
   <div class="uk-flex-1 uk-margin-left">
     <p>Remaining</p>
-    <h3 class="mt-0">{{ remainingEntries }}/{{ entriesData?.length }}</h3>
+    <h3 class="mt-0 brackets">{{ remainingEntries }}/{{ entriesData?.length }}</h3>
   </div>
   <div class="uk-flex-1 uk-margin-left">
     <p>Approved</p>
-    <h3 class="mt-0">{{ approvedEntries?.length }}/{{ entriesData?.length }}</h3>
+    <h3 class="mt-0 brackets">{{ approvedEntries?.length }}/{{ entriesData?.length }}</h3>
   </div>
   <div class="uk-flex-1 uk-margin-left">
     <p>Not Approved</p>
-    <h3 class="mt-0">{{ unApprovedEntries?.length }}/{{ entriesData?.length }}</h3>
+    <h3 class="mt-0 brackets">{{ unApprovedEntries?.length }}/{{ entriesData?.length }}</h3>
   </div>
 </div>
 
@@ -149,7 +149,7 @@ and the reason for your chosen entries.
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Reason" formControlName="reason"></textarea>
   </div>
   <div class="text-right">
-    <button matInput #reason #comment class="btn btn-outline-primary" [disabled]="viewsForm.pristine" (click)="saveViews()">Save</button>
+    <button matInput #reason #comment class="btn btn-outline-primary" [disabled]="viewsForm.pristine" (click)="saveViews()">Submit</button>
   </div>
  <!-- End -->
 </form>
