@@ -2,6 +2,7 @@
   <h2 class="uk-text-center">You are assigned to Group A</h2>
   <hr style="margin: 0 -16px;">
 
+<<<<<<< HEAD
   <div class="uk-text-center uk-margin-large" *ngIf="entriesData?.length < 1">
     <p>No entries submitted yet</p>
   </div>
@@ -30,6 +31,38 @@
       <div class="judge-process4">
       <h3 class="mt-0 count4">{{ unApprovedEntries?.length }}/{{ entriesData?.length }}</h3>
       </div>
+=======
+<h2 class="uk-text-center">You are assigned to Group A</h2>
+<hr style="margin: 0 -16px;">
+
+<div class="uk-text-center uk-margin-large" *ngIf="entriesData?.length < 1">
+  <p>No entries submitted yet</p>
+</div>
+
+<div class="uk-flex uk-flex-center text-center uk-margin uk-margin-large-bottom" *ngIf="entriesData?.length > 0">
+  <div class="uk-flex-1">
+    <p>Processed</p>
+    <div class="judge-process">
+    <h3 class="mt-0 count">{{ processedEntries }}/{{ entriesData?.length }}</h3>
+  </div>
+  </div>
+  <div class="uk-flex-1 uk-margin-left">
+    <p>Remaining</p>
+    <div class="judge-process2">
+    <h3 class="mt-0 count2">{{ remainingEntries }}/{{ entriesData?.length }}</h3>
+    </div>
+  </div>
+  <div class="uk-flex-1 uk-margin-left">
+    <p>Approved</p>
+    <div class="judge-process3">
+    <h3 class="mt-0 count3">{{ approvedEntries?.length }}/{{ entriesData?.length }}</h3>
+    </div>
+  </div>
+  <div class="uk-flex-1 uk-margin-left">
+    <p>Not Approved</p>
+    <div class="judge-process4">
+    <h3 class="mt-0 count4">{{ unApprovedEntries?.length }}/{{ entriesData?.length }}</h3>
+>>>>>>> cea487815de96648144532edcf8c61924a6542ae
     </div>
   </div>
 
@@ -54,6 +87,7 @@
               <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-light" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
               <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-light" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
             
+<<<<<<< HEAD
           </div>
 
           <div class="uk-button-group uk-flex uk-margin uk-light">
@@ -81,6 +115,37 @@
       <a href="#" uk-slidenav-previous uk-slider-item="previous"></a>
       <a href="#" uk-slidenav-next uk-slider-item="next"></a>
     </div>
+=======
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-light" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-light" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+          
+        </div>
+
+        <div class="uk-button-group uk-flex uk-margin uk-light">
+          <button class="uk-button uk-flex-1 btn-primary btn-yes" style="height: 50px;" (click)="castVote('YES', entry)">
+            <svg class="bi bi-check-circle" width="30" height="30" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+            </svg>
+            </button>
+          
+          <button class="uk-button uk-flex-1 btn-primary btn-No" style="height: 50px;" (click)="castVote('NO', entry)">
+            <svg class="bi bi-x-circle" width="30" height="30" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+              <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+            </svg>
+          </button>
+         <!-- <i class="fal fa-check-circle 2x"></i>
+          <i class="fal fa-times-circle 2x"></i>
+          -->
+        </div>
+      </li>
+  </ul>
+  <div class="uk-position-top-right top-artwork-nav">
+    <a href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+    <a href="#" uk-slidenav-next uk-slider-item="next"></a>
+>>>>>>> cea487815de96648144532edcf8c61924a6542ae
   </div>
 
   <div id="artwork-preview" uk-modal>
@@ -96,11 +161,31 @@
   </div>
 
 
+<<<<<<< HEAD
   <div class="d-flex justify-content-between my-3" style="padding: 40px">
     <h4 class="my-3 text-muted overall">
   Please give your overall impression regarding this process
   and the reason for your chosen entries.
   </h4>
+=======
+<div class="d-flex justify-content-between my-3" style="padding: 40px">
+  <h4 class="my-3 text-muted overall">
+Please give your overall impression regarding this process
+and the reason for your chosen entries.
+</h4>
+</div>
+
+<form class="form-signin" [formGroup]="viewsForm" >
+  <!--
+  <div class="d-flex justify-content-between my-3">
+    <h3 class="my-3 text-muted">Comment</h3>
+    <div class="text-right">
+        <button mat-icon-button ar ia-label="Edit" (click)="toggleEditComment = !toggleEditComment">
+            <mat-icon>{{ toggleEditComment ? 'close' : 'edit' }}</mat-icon>
+        </button>
+    </div>
+    
+>>>>>>> cea487815de96648144532edcf8c61924a6542ae
   </div>
 
   <form class="form-signin" [formGroup]="viewsForm" >
@@ -137,6 +222,7 @@
       
     </div>
 
+<<<<<<< HEAD
     <p [hidden]="toggleEditReason">{{ viewsData?.reason || 'No reason added yet' }}</p>
 
     <div [hidden]="!toggleEditReason">
@@ -167,3 +253,18 @@
   <p style="color: #4a4848;">Thank you for agreeing to be part of this process. You are required to adjudicateall the entries allocated to you in your respective Group. However, you are only permitted to approve a total of 10. You do not necessarily have to ﬁnish the adjudication process in one sitting. You have until [insert date] to ﬁnalise and submit your ﬁnal adjudication results</p>
   <button class="btn btn-sm ng-star-inserted" type="button" (click)="onHideNotice()" style="color: #fff;background-color: #800035;float: right;">Proceed</button>
 </div>
+=======
+-->
+<!-- New form -->
+  <div class="form-group">
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment" formControlName="comment"></textarea>
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Reason" formControlName="reason"></textarea>
+  </div>
+  <div class="text-right">
+    <button matInput #reason #comment class="btn btn-outline-primary" [disabled]="viewsForm.pristine" (click)="saveViews()">Submit</button>
+  </div>
+ <!-- End -->
+</form>
+>>>>>>> cea487815de96648144532edcf8c61924a6542ae
