@@ -23,8 +23,8 @@ export class AuthService {
   usersDB: AngularFirestoreCollection<any> = this.afs.collection('users');
   uuid = UUID.UUID();
   API_URL: 'http://localhost:3000';
-
-  private emailUrl = 'mails.php';
+//API_URL: 'http://sightgroupsa.co.za'
+  private emailUrl = 'http://sightgroupsa.co.za/mails.php';
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -68,6 +68,7 @@ export class AuthService {
   }
 
   logoutUser() {
+    sessionStorage.removeItem('competition:notice');
     return sessionStorage.removeItem('competition:uuid');
   }
 

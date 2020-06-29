@@ -36,6 +36,7 @@ import { IdGeneratorService } from './providers/id-generator/id-generator.servic
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { PasswordResetComponent } from './pages/auth/password-reset/password-reset.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmLogoutDialogComponent } from './components/confirm-logout-dialog/confirm-logout-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddWorkComponent,
     ConfirmDeleteDialogComponent,
     SubmissionComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    ConfirmLogoutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UpdateProfileComponent,
     EnterCompetitionComponent,
     AddWorkComponent,
-    ConfirmDeleteDialogComponent
+    ConfirmDeleteDialogComponent,
+    ConfirmLogoutDialogComponent
   ],
   bootstrap: [AppComponent]
 })

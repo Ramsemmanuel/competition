@@ -1,0 +1,11 @@
+
+<h1 mat-dialog-title>Logout</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to logout before completing the adjudication process?</p>
+</div>
+
+
+<div mat-dialog-actions class="uk-align-right">
+  <button mat-button (click)="onCancel()">NO</button>
+  <button style="background-color: #800035;color: white;" class="btn btn-sm" (click)="onConfirm()" color="primary" cdkFocusInitial>YES</button>
+</div>

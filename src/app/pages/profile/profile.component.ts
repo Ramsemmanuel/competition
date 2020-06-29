@@ -124,6 +124,9 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(EnterCompetitionComponent, {
       width: '600px',
       data: {competition: item, userData: this.userData}
+    }).afterClosed().subscribe((data)=> {
+      this.getUserWork();
+      this.getUser();
     });
   }
 
@@ -134,6 +137,7 @@ export class ProfileComponent implements OnInit {
       data: {workData: null, userData: this.userData}
     }).afterClosed().subscribe((data)=> {
       this.getUserWork();
+      this.getUser();
     });
   }
 
@@ -160,6 +164,7 @@ export class ProfileComponent implements OnInit {
       data: {workData: item, userData: this.userData}
     }).afterClosed().subscribe((data)=> {
       this.getUserWork();
+      this.getUser();
     });
   }
 
@@ -169,6 +174,7 @@ export class ProfileComponent implements OnInit {
         this.competitionsProvider.deleteWork(item).subscribe((data) => {
           this.snackBar.open(data['message'], 'CLOSE', { duration: 5000 });
           this.getUserWork();
+          this.getUser();
         })
       }
     })

@@ -17,12 +17,12 @@ if(empty($errors))
 
 	$from_email = 'no-reply@domain.com';
 	$message = "Please follow this link to reset your password:
-	https://latelier.ftech.aws.dsarena.com/#/password-reset";
+	https://localhost:3000/#/password-reset";
 	$from_name = 'No-reply';
 	$subject = 'Reset your password';
 
 	$to_email = $request->email;
-	// $to_email = "ratshili.te@gmail.com";
+	// $to_email = "ramsemmanuel@gmail.com";
 
 	// $contact = "<p><strong>Names:</strong> $from_name</p>
 	// 			<p><strong>Email:</strong> $from_email</p>

@@ -117,3 +117,22 @@
         }
     }
 }
+
+.fontWeight600{
+    font-weight: 600;
+}
+
+.logoutBTN{
+    border: none;
+    padding-bottom: 10px;
+    padding-left: 0px;
+}
+
+.logoutBTN:hover {
+    background-color: inherit;
+    color: crimson;
+}
+
+.logoutBTN:focus {
+    box-shadow: 0 0 0 0.2rem rgba(128, 0, 53, 0);
+}

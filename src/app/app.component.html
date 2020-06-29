@@ -15,7 +15,9 @@
                     |
                     <a href="" [routerLink]="['/register']">Register</a>
                 </p>
-                <button type="button" (click)="logout()" class="btn btn-outline-primary" *ngIf="loggedInUser">Logout</button>
+                <div *ngIf="loggedInUser">
+                    <span class="text-primary m-0 fontWeight600" style="padding-right: 5px;">Welcome, {{loggedInUser.firstName+' '+loggedInUser.lastName}} |</span><button type="button" (click)="logout()" class="btn btn-outline-primary fontWeight600 logoutBTN" *ngIf="loggedInUser">Logout</button>
+                </div>
             </div>
         <!-- </div> -->
     </div>

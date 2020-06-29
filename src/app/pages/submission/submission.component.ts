@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/api/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 
-
 declare var UIkit;
 
 @Component({
@@ -32,6 +31,9 @@ export class SubmissionComponent implements OnInit {
   buttonLabel: string;
   toggleEditComment: boolean = false;
   toggleEditReason: boolean = false;
+  allEntriesProcessed: boolean = false;
+  showNoticeOnced:any;
+  showDashboard: boolean = true;
 
   constructor(
     public competitionsProvider: CompetitionsService,
@@ -48,6 +50,13 @@ export class SubmissionComponent implements OnInit {
       comment: [this.viewsData ? this.viewsData.comment : null, Validators.nullValidator],
       reason: [this.viewsData ? this.viewsData.reason : null, Validators.nullValidator]
     });
+
+    //To show/hide the notice for judge
+    this.showNoticeOnced = sessionStorage.getItem('competition:notice');
+    if(!this.showNoticeOnced){
+      this.showDashboard = false;
+      sessionStorage.setItem('competition:notice','shown');
+    }
   }
 
   ngOnInit() {
@@ -77,6 +86,7 @@ export class SubmissionComponent implements OnInit {
         this.initialiseArtworks();
         this.getAllVotes();
         this.getUsersFromEntries();
+        
         // this.viewsForm.patchValue({comments: this.userData.comments ? this.userData.comments : '' });
 
       }
@@ -94,6 +104,7 @@ export class SubmissionComponent implements OnInit {
 
   saveViews() {
     let viewsData = this.viewsForm.value;
+    let userId = sessionStorage.getItem('competition:uuid');
     viewsData.userId = this.userId;
     if(this.userId && (viewsData.comment || viewsData.reason)) {
       // Update
@@ -103,7 +114,7 @@ export class SubmissionComponent implements OnInit {
           this.getViews(this.userId);
           this.toggleEditComment = false;
           this.toggleEditReason = false;
-          this.snackBar.open('Views updated successfully', 'CLOSE', { duration: 5000 });
+          this.snackBar.open('Overall Comment and Reason saved successfully', 'CLOSE', { duration: 5000 });
         })
       }
       // Add
@@ -113,7 +124,7 @@ export class SubmissionComponent implements OnInit {
           this.getViews(this.userId);
           this.toggleEditComment = false;
           this.toggleEditReason = false;
-          this.snackBar.open('Views Added successfully', 'CLOSE', { duration: 5000 });
+          this.snackBar.open('Overall Comment and Reason saved successfully', 'CLOSE', { duration: 5000 });
         })
       }
 
@@ -139,6 +150,7 @@ export class SubmissionComponent implements OnInit {
       this.unApprovedEntries = this.votesData.filter((item) => item.vote === 'NO');
       this.processedEntries = this.approvedEntries.length + this.unApprovedEntries.length;
       this.remainingEntries = this.entriesData.length - (this.approvedEntries.length + this.unApprovedEntries.length);
+      this.allEntriesProcessed = this.processedEntries == this.entriesData.length;
     });
   }
 
@@ -199,5 +211,8 @@ export class SubmissionComponent implements OnInit {
         this.getAllVotes();
       });
     }
+  }
+  onHideNotice = function () {
+    this.showDashboard = true;
   }
 }
